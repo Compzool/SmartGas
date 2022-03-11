@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:smartgas/colors/colors.dart';
+import 'package:smartgas/pages/home_page.dart';
 import 'package:smartgas/widgets/app_largetext.dart';
 import 'package:smartgas/widgets/app_text.dart';
 import 'package:smartgas/widgets/responsive_button.dart';
+import 'package:smartgas/widgets/spin_animation.dart';
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({ Key? key }) : super(key: key);
@@ -49,12 +53,20 @@ class WelcomePage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 20,),
-                      ResponsiveButton(width: 120)
+                      GestureDetector(
+                        onTap: () { 
+                          
+                          Get.to(()=>SpinAnimation()); 
+                          Get.to(() => HomePage(),duration: Duration(seconds: 3));
+                        },
+                        child: ResponsiveButton(width: 150)
+                        )
                     ],
                   ),
                   Column(
                     children: List.generate(3,(indexDots){
                       return Container(
+                        
                         margin: EdgeInsets.only(bottom: 2),
                         width: 8,
                         height: index == indexDots? 25:8,
