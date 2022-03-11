@@ -7,7 +7,6 @@ class LoginOption extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-
         Text(
           "Existing user?",
           style: TextStyle(
@@ -18,35 +17,63 @@ class LoginOption extends StatelessWidget {
         SizedBox(
           height: 16,
         ),
-
         Container(
           height: 40,
           decoration: BoxDecoration(
-            color: Color(0xFF1C1C1C),
+            //color: Color(0xFF1C1C1C),
+            color: Colors.white,
             borderRadius: BorderRadius.all(
               Radius.circular(25),
             ),
             boxShadow: [
               BoxShadow(
-                color: Color(0xFF1C1C1C).withOpacity(0.2),
+                //color: Color(0xFF1C1C1C).withOpacity(0.2),
+                color: Color.fromARGB(123, 88, 6, 104).withOpacity(0.4),
                 spreadRadius: 3,
                 blurRadius: 4,
                 offset: Offset(0, 3),
               ),
             ],
           ),
-          child:  Center(
+          child: Center(
             child: Text(
               "LOGIN",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFF3D657),
+                //color: Color(0xFFF3D657),
+                color: Color.fromARGB(255, 88, 6, 104),
               ),
             ),
           ),
         ),
-
+        // Container(
+        //   height: 40,
+        //   decoration: BoxDecoration(
+        //     color: Color(0xFF1C1C1C),
+        //     borderRadius: BorderRadius.all(
+        //       Radius.circular(25),
+        //     ),
+        //     boxShadow: [
+        //       BoxShadow(
+        //         color: Color(0xFF1C1C1C).withOpacity(0.2),
+        //         spreadRadius: 3,
+        //         blurRadius: 4,
+        //         offset: Offset(0, 3),
+        //       ),
+        //     ],
+        //   ),
+        //   child:  Center(
+        //     child: Text(
+        //       "LOGIN",
+        //       style: TextStyle(
+        //         fontSize: 24,
+        //         fontWeight: FontWeight.bold,
+        //         color: Color(0xFFF3D657),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
