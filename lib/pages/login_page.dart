@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:smartgas/controllers/authentication_controller.dart';
+var emailController = TextEditingController();
+var passwordController = TextEditingController();
 class Login extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,6 +46,7 @@ class Login extends StatelessWidget {
         ),
 
         TextField(
+          controller: emailController,
           decoration: InputDecoration(
             hintText: 'Email / Username',
             hintStyle: TextStyle(
@@ -67,6 +72,8 @@ class Login extends StatelessWidget {
         ),
 
         TextField(
+          controller: passwordController,
+          obscureText: true,
           decoration: InputDecoration(
             hintText: 'Password',
             hintStyle: TextStyle(
@@ -91,29 +98,34 @@ class Login extends StatelessWidget {
           height: 24,
         ),
 
-        Container(
-          height: 40,
-          decoration: BoxDecoration(
-            color: Color(0xFF1C1C1C),
-            borderRadius: BorderRadius.all(
-              Radius.circular(25),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFF1C1C1C).withOpacity(0.2),
-                spreadRadius: 3,
-                blurRadius: 4,
-                offset: Offset(0, 3),
+        GestureDetector(
+          onTap: (){
+            AuthController.instance.Login(emailController.text.trim(), passwordController.text.trim());
+          },
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: Color(0xFF1C1C1C),
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
               ),
-            ],
-          ),
-          child:  Center(
-            child: Text(
-              "LOGIN",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFF3D657),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFF1C1C1C).withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child:  Center(
+              child: Text(
+                "LOGIN",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFF3D657),
+                ),
               ),
             ),
           ),

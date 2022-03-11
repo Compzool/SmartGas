@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-class SignUp extends StatelessWidget {
+import 'package:smartgas/controllers/authentication_controller.dart';
 
+var emailController = TextEditingController();
+var passwordController = TextEditingController();
+class SignUp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,6 +38,7 @@ class SignUp extends StatelessWidget {
         ),
 
         TextField(
+          controller: emailController,
           decoration: InputDecoration(
             hintText: 'Enter Email / Username',
             hintStyle: TextStyle(
@@ -59,6 +64,7 @@ class SignUp extends StatelessWidget {
         ),
 
         TextField(
+          controller: passwordController,
           decoration: InputDecoration(
             hintText: 'Password',
             hintStyle: TextStyle(
@@ -100,12 +106,15 @@ class SignUp extends StatelessWidget {
             ],
           ),
           child:  Center(
-            child: Text(
-              "SIGN UP",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1C1C1C),
+            child: ElevatedButton(
+              onPressed: () =>  AuthController.instance.register(emailController.text.trim(), passwordController.text.trim()),
+              child: Text(
+                "SIGN UP",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1C1C1C),
+                ),
               ),
             ),
           ),
