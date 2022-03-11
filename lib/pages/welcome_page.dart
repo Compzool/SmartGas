@@ -53,14 +53,15 @@ class WelcomePage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 20,),
+                      index == (images.length - 1)?
                       GestureDetector(
                         onTap: () { 
                           
                           Get.to(()=>SpinAnimation()); 
-                          Get.to(() => HomePage(),duration: Duration(seconds: 3));
+                          Get.off(() => HomePage(),duration: Duration(seconds: 1));
                         },
                         child: ResponsiveButton(width: 150)
-                        )
+                        ) : SizedBox()
                     ],
                   ),
                   Column(

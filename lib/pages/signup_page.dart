@@ -106,7 +106,8 @@ class SignUp extends StatelessWidget {
             ],
           ),
           child:  Center(
-            child: ElevatedButton(
+            child: TextButton(
+              style: TextButton.styleFrom(padding: EdgeInsets.only(left: 120, right: 120),),
               onPressed: () =>  AuthController.instance.register(emailController.text.trim(), passwordController.text.trim()),
               child: Text(
                 "SIGN UP",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smartgas/colors/colors.dart';
 import 'package:smartgas/pages/home_page.dart';
 import 'package:smartgas/pages/testing.dart';
 import 'package:smartgas/pages/welcome_page.dart';
@@ -53,13 +54,13 @@ class AuthController extends GetxController{
     }catch(e){
       
       Get.snackbar("About Login", "Login message",
-      backgroundColor: Colors.redAccent,
+      backgroundColor:Color(0xFFECCB45),
       titleText:  Text("Account Login failed",
-      style: TextStyle(color: Colors.white),),
+      style: TextStyle(color: Colors.black),),
       messageText: 
       Text(e.toString(),
       style: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
       ),),
       );
     }
