@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 16),
+                              horizontal: 32, vertical: 1),
                           child: !login ? SignUp() : SignUpOption(),
                         ),
                       ),

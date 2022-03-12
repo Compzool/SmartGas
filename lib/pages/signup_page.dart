@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
+import 'package:smartgas/colors/colors.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
+import 'package:smartgas/widgets/auth_box.dart';
 
 class SignUp extends StatefulWidget {
   
@@ -40,85 +42,52 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         SizedBox(
-          height: 16,
+          height: 10,
         ),
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(
-            hintText: 'Enter Email / Username',
-            hintStyle: TextStyle(
-              fontSize: 16,
-              color: Color(0xFF3F3C31),
-              fontWeight: FontWeight.bold,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
-            filled: true,
-            //fillColor: Colors.grey.withOpacity(0.1),
-            fillColor: Colors.white.withOpacity(0.4),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          ),
-        ),
+        TextForm(hintText: "Email / Username",controller: emailController,color: AppColors.signupColor,fillColor: AppColors.signupFillColor,),
         SizedBox(
-          height: 16,
+          height: 10,
         ),
-        TextField(
-          controller: passwordController,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            hintStyle: TextStyle(
-              fontSize: 16,
-              color: Color(0xFF3F3C31),
-              fontWeight: FontWeight.bold,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
-            filled: true,
-            //fillColor: Colors.grey.withOpacity(0.1),
-            fillColor: Colors.white.withOpacity(0.4),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          ),
+        TextForm(hintText: "Password",controller: passwordController,color: AppColors.signupColor,fillColor: AppColors.signupFillColor,isPassword: true),
+        SizedBox(
+          height: 10,
         ),
+        TextForm(hintText: "confirm Password",controller: confirmPasswordController,color: AppColors.signupColor,fillColor: AppColors.signupFillColor,isPassword: true,),
         SizedBox(
           height: 24,
         ),
-        Container(
-          height: 40,
-          decoration: BoxDecoration(
-            //color: Color(0xFFF3D657),
-            color: Colors.white.withOpacity(0.9),
-            borderRadius: BorderRadius.all(
-              Radius.circular(25),
+        GestureDetector(
+          onTap: () { 
+                confirmPasswordController.text == passwordController.text ? AuthController.instance.register(
+                  emailController.text.trim(), passwordController.text.trim()): Get.snackbar("About Signup", "User message",
+                  backgroundColor: Color(0xFFECCB45),
+                  titleText:  Text("Password doesn't match",
+                  style: TextStyle(color: Colors.black),),
+      );
+                
+                  },
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+              //color: Color(0xFFF3D657),
+              color: Colors.white.withOpacity(0.9),
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  //color: Color(0xFFF3D657).withOpacity(0.2),
+                  color: Colors.white.withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: Offset(0, 3),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(
-                //color: Color(0xFFF3D657).withOpacity(0.2),
-                color: Colors.white.withOpacity(0.2),
-                spreadRadius: 3,
-                blurRadius: 4,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Center(
-            child: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.only(left: 120, right: 120),
-              ),
-              onPressed: () => AuthController.instance.register(
-                  emailController.text.trim(), passwordController.text.trim()),
+            child: Center(
               child: Text(
                 "SIGN UP",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -129,7 +98,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         SizedBox(
-          height: 24,
+          height: 16,
         ),
         Text(
           "Or Signup with",
@@ -141,7 +110,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         SizedBox(
-          height: 16,
+          height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

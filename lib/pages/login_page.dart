@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
+import 'package:smartgas/widgets/auth_box.dart';
 
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
 
-class Login extends StatelessWidget {
+
+class Login extends StatefulWidget {
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,55 +52,11 @@ class Login extends StatelessWidget {
         SizedBox(
           height: 16,
         ),
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(
-            hintText: 'Email / Username',
-            hintStyle: TextStyle(
-              fontSize: 16,
-              color: Color.fromARGB(83, 18, 32, 230),
-              fontWeight: FontWeight.bold,
-            ),
-
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
-            filled: true,
-            //fillColor: Color(0xFFECCB45),
-            fillColor: Color.fromARGB(123, 88, 6, 104),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          ),
-        ),
+        TextForm(hintText: "Email / Username", controller: emailController,),
         SizedBox(
           height: 16,
         ),
-        TextField(
-          controller: passwordController,
-          obscureText: true,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            hintStyle: TextStyle(
-              fontSize: 16,
-              color: Color.fromARGB(83, 18, 32, 230),
-              fontWeight: FontWeight.bold,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
-            filled: true,
-            //fillColor: Color(0xFFECCB45),
-            fillColor: Color.fromARGB(123, 88, 6, 104),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          ),
-        ),
+        TextForm(hintText: "Password", controller: passwordController,isPassword: true,),
         SizedBox(
           height: 24,
         ),

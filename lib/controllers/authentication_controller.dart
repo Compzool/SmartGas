@@ -37,13 +37,13 @@ class AuthController extends GetxController{
     }catch(e){
       
       Get.snackbar("About User", "User message",
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Color(0xFFECCB45),
       titleText:  Text("Account creation failed",
-      style: TextStyle(color: Colors.white),),
+      style: TextStyle(color: Colors.black),),
       messageText: 
       Text(e.toString(),
       style: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
       ),),
       );
     }
@@ -78,7 +78,7 @@ Future<User?> google_signIn() async{
     final User? user = (await auth.signInWithCredential(credential).then((value) => Get.offAll(TestingPage())));  //if credential success, then using _auth signed in user data will be stored 
  }
   void Logout() async{
-    await googleSignIn.disconnect();
     await auth.signOut();
+    await googleSignIn.disconnect();
   }
 }  
