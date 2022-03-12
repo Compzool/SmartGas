@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:get/get.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
+
 
 var emailController = TextEditingController();
 var passwordController = TextEditingController();
@@ -139,9 +141,12 @@ class SignUp extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(
-              FontAwesome5.google_plus,
-              size: 32,
+            IconButton(
+              onPressed: (() {
+                AuthController.instance.google_signIn();
+              }),
+              icon: Icon(FontAwesome5.google_plus),
+              iconSize: 32,
               color: Color(0xFFF3D657),
             ),
             SizedBox(

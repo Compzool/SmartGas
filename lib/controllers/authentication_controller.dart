@@ -5,12 +5,13 @@ import 'package:smartgas/colors/colors.dart';
 import 'package:smartgas/pages/home_page.dart';
 import 'package:smartgas/pages/testing.dart';
 import 'package:smartgas/pages/welcome_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController{
   static AuthController instance = Get.find();
   late Rx<User?> _user;
   FirebaseAuth auth = FirebaseAuth.instance;
-
+  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
   @override
   void onReady(){
     super.onReady();
@@ -65,6 +66,17 @@ class AuthController extends GetxController{
       );
     }
   }
+
+     //initialization with scope as Email
+void google_signIn() async{
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();  //calling signIn method // this will open a dialog pop where user can select his email id to signin to the app
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;  
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,                                           //create a login credential
+      accessToken: googleAuth.accessToken
+    );
+    final User? user = (await auth.signInWithCredential(credential).then((value) => Get.offAll(TestingPage())));  //if credential success, then using _auth signed in user data will be stored 
+ }
   void Logout() async{
     await auth.signOut();
   }
