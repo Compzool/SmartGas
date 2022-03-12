@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartgas/colors/colors.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
+import 'package:smartgas/pages/forgot_email.dart';
 import 'package:smartgas/widgets/auth_box.dart';
 
 
@@ -99,15 +102,10 @@ class _LoginState extends State<Login> {
         SizedBox(
           height: 16,
         ),
-        Text(
-          "FORGOT PASSWORD?",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            //color: Color(0xFF1C1C1C),
-            color: Color.fromARGB(234, 88, 6, 104),
-            height: 1,
-          ),
+        TextButton(
+          onPressed:() => Get.to(()=>ForgotEmail()) ,
+          child: Text("FORGOT PASSWORD?"),
+          style: TextButton.styleFrom(primary: Color.fromARGB(255, 88, 6, 104),textStyle: TextStyle(fontSize:18,fontWeight: FontWeight.bold,height: 1 ,),alignment: Alignment.centerLeft ),
         ),
       ],
     );

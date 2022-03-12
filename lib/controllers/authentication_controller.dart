@@ -66,7 +66,28 @@ class AuthController extends GetxController{
       );
     }
   }
+  Future resetPassword(String email) async{
+    try{
+      await auth.sendPasswordResetEmail(email: email);
+      Get.snackbar("About Reset", "Reset",
+        backgroundColor:Color(0xFFECCB45),
+        titleText:  Text("Reset email sent",
+        style: TextStyle(color: Colors.black),)
+        );
 
+  }on FirebaseAuthException catch(e){
+      Get.snackbar("About Reset", "Failed Request",
+      backgroundColor:Color(0xFFECCB45),
+      titleText:  Text("Reset email not sent",
+      style: TextStyle(color: Colors.black),),
+      messageText: 
+      Text(e.toString(),
+      style: TextStyle(
+        color: Colors.black,
+      ),),
+      );
+    }
+  }
      //initialization with scope as Email
 Future<User?> google_signIn() async{
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();  //calling signIn method // this will open a dialog pop where user can select his email id to signin to the app
