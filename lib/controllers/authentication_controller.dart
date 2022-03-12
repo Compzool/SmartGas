@@ -68,7 +68,7 @@ class AuthController extends GetxController{
   }
 
      //initialization with scope as Email
-void google_signIn() async{
+Future<User?> google_signIn() async{
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();  //calling signIn method // this will open a dialog pop where user can select his email id to signin to the app
     final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;  
     final AuthCredential credential = GoogleAuthProvider.credential(
@@ -78,6 +78,7 @@ void google_signIn() async{
     final User? user = (await auth.signInWithCredential(credential).then((value) => Get.offAll(TestingPage())));  //if credential success, then using _auth signed in user data will be stored 
  }
   void Logout() async{
+    await googleSignIn.disconnect();
     await auth.signOut();
   }
 }  

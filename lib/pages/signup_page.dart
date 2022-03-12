@@ -3,11 +3,16 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
 
+class SignUp extends StatefulWidget {
+  
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
 
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
-
-class SignUp extends StatelessWidget {
+class _SignUpState extends State<SignUp> {
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
