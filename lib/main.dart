@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/pages/home_page.dart';
+import 'package:smartgas/pages/liquid_welcome.dart';
 import 'package:smartgas/pages/welcome_page.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp().then((value) => Get.put(AuthController()));
+  //WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   runApp(const MyApp());
 }
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Smart Gas',
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => WelcomePage()),
+        GetPage(name: '/', page: () => GreetingPage()),
         GetPage(name: '/home_page', page: () => HomePage())
       ],
     );

@@ -41,6 +41,8 @@ dependencies:
   fluttericon: ^2.0.0
   flutter_spinkit: ^5.1.0
   google_sign_in: ^5.2.4
+  liquid_swipe: ^2.1.1
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
