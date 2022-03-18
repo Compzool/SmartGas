@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smartgas/colors/colors.dart';
+import 'package:smartgas/pages/Enter_phone.dart';
 import 'package:smartgas/pages/home_page.dart';
 import 'package:smartgas/pages/testing.dart';
 import 'package:smartgas/pages/welcome_page.dart';
@@ -11,6 +15,8 @@ class AuthController extends GetxController{
   static AuthController instance = Get.find();
   late Rx<User?> _user;
   FirebaseAuth auth = FirebaseAuth.instance;
+  bool isVerified = false;
+  Timer? timer;
   GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
   @override
   void onReady(){
@@ -21,18 +27,45 @@ class AuthController extends GetxController{
     ever(_user, _initialScreen);
   }
 
-  _initialScreen(User? user){
+  _initialScreen(User? user) async{
     if(user == null){
       print("Login Page");
       Get.offAll(() => WelcomePage());
     }else{
-      Get.offAll(() => TestingPage());
+       
+
+        if (user != null && !user.emailVerified) {
+            await user.sendEmailVerification();
+            Get.snackbar("Verifcation", "User message",
+      backgroundColor: Color(0xFFECCB45),
+      titleText:  Text("Please Verify your email before you proceed",
+      style: TextStyle(color: Colors.black),));
+
+      timer = Timer.periodic(Duration(seconds: 3), (_) => checkEmailVerified());
+}
+     
     }
   }
+  
+  Future checkEmailVerified() async{
+    await auth.currentUser!.reload();
+    isVerified = auth.currentUser!.emailVerified;
+    if(isVerified){
+      Get.offAll(() => EnterPhone());
+      timer?.cancel();
+      
+    }
 
+  }
+@override
+  void dispose(){
+    timer?.cancel();
+    super.dispose();
+  }
   void register(String email, String password) async{
     try {
         await auth.createUserWithEmailAndPassword(email: email, password: password);
+       
 
     }catch(e){
       
