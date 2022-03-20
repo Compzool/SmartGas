@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smartgas/components/default_button.dart';
+import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/widgets/size_config.dart';
 
 class Body extends StatelessWidget {
@@ -28,6 +30,7 @@ class Body extends StatelessWidget {
             text: "Back to home",
             press: () {
               //Navigator.pushNamed(context, HomeScreen.routeName);
+              AuthController.instance.Logout();
             },
           ),
         ),

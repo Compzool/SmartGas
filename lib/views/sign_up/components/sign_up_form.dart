@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/default_button.dart';
 import 'package:smartgas/components/form_error.dart';
+import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/views/complete_profile/complete_profile_screen.dart';
 
 import 'package:smartgas/widgets/constants.dart';
@@ -56,7 +57,7 @@ class _SignUpFormState extends State<SignUpForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                Get.to(() => CompleteProfileScreen());
+                AuthController.instance.register(email!, password!);
               }
             },
           ),

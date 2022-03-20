@@ -88,7 +88,7 @@ class _GreetingPageState extends State<GreetingPage> {
                 Padding(
                     padding: const EdgeInsets.all(50.0),
                     child: GestureDetector(
-                      onTap: (() => Get.to(SignInScreen(),
+                      onTap: (() => Get.to(() => SignInScreen(),
                           duration: Duration(milliseconds: 750),
                           transition: Transition.leftToRight)),
                       child: AnimatedContainer(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/colors/colors.dart';
 import 'package:smartgas/components/social_card.dart';
+import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/widgets/constants.dart';
 import 'package:smartgas/widgets/size_config.dart';
 
@@ -49,7 +50,9 @@ class Body extends StatelessWidget {
                   children: [
                     SocalCard(
                       icon: "assets/icons/google-icon.svg",
-                      press: () {},
+                      press: () {
+                        AuthController.instance.google_signIn();
+                      },
                     ),
                     SocalCard(
                       icon: "assets/icons/facebook-2.svg",
