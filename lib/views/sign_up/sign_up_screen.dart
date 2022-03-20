@@ -7,10 +7,23 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Sign Up"),
+      body: Container(
+        height: double.maxFinite,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/eco.jpg'),
+            fit: BoxFit.cover,
+            opacity: 0.33,
+          ),
+        ),
+        child: Body(),
       ),
-      body: Body(),
     );
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text("Sign Up"),
+    //   ),
+    //   body: Body(),
+    // );
   }
 }

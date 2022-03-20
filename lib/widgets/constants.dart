@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartgas/widgets/size_config.dart';
+import 'package:smartgas/colors/colors.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
@@ -13,10 +14,15 @@ const kTextColor = Color(0xFF757575);
 
 const kAnimationDuration = Duration(milliseconds: 200);
 
+final LabelStyle = TextStyle(
+  color: AppColors.color1,
+);
+
 final headingStyle = TextStyle(
   fontSize: getProportionateScreenWidth(28),
   fontWeight: FontWeight.bold,
-  color: Colors.black,
+  //color: Colors.black,
+  color: AppColors.color1,
   height: 1.5,
 );
 

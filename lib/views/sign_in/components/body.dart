@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smartgas/components/no_account_text.dart';
 import 'package:smartgas/components/social_card.dart';
 import 'package:smartgas/widgets/size_config.dart';
+import '../../../colors/colors.dart';
 import 'sign_form.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Color color1 = Color.fromARGB(255, 9, 49, 21);
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
@@ -17,20 +20,39 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
-                Text(
-                  "Welcome Back",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () => Get.back(),
+                      icon: Icon(
+                        Icons.arrow_back_ios_new,
+                        color: AppColors.color1,
+                      ),
+                    ),
+                    Text(
+                      "Welcome Back",
+                      style: TextStyle(
+                        //color: Colors.black,
+                        color: color1,
+                        fontSize: getProportionateScreenWidth(28),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 50,
+                    ),
+                  ],
                 ),
                 Text(
                   "Sign in with your email and password  \nor continue with social media",
                   textAlign: TextAlign.center,
+                  style: TextStyle(color: color1),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SignForm(),
+                SizedBox(
+                  child: SignForm(),
+                ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

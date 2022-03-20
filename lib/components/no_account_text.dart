@@ -20,12 +20,17 @@ class NoAccountText extends StatelessWidget {
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
-          onTap: () => Get.to(()=>SignUpScreen()),
+          onTap: () => Get.to(
+            () => SignUpScreen(),
+            duration: Duration(seconds: 1),
+            transition: Transition.fade,
+          ),
           child: Text(
             "Sign Up",
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(16),
-                color: kPrimaryColor),
+                //color: kPrimaryColor,
+                color: Color.fromARGB(255, 40, 65, 10)),
           ),
         ),
       ],

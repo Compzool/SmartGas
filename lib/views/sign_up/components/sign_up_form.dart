@@ -8,6 +8,7 @@ import 'package:smartgas/views/complete_profile/complete_profile_screen.dart';
 import 'package:smartgas/widgets/constants.dart';
 import 'package:smartgas/widgets/size_config.dart';
 
+import '../../../colors/colors.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -55,7 +56,7 @@ class _SignUpFormState extends State<SignUpForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                Get.to(()=>CompleteProfileScreen());
+                Get.to(() => CompleteProfileScreen());
               }
             },
           ),
@@ -88,11 +89,17 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Confirm Password",
+        labelStyle: LabelStyle,
         hintText: "Re-enter your password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.color1),
+          borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(30), right: Radius.circular(30)),
+        ),
       ),
     );
   }
@@ -104,7 +111,7 @@ class _SignUpFormState extends State<SignUpForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        } else if (value.length >= 6) {
           removeError(error: kShortPassError);
         }
         password = value;
@@ -113,7 +120,7 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value!.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 6) {
           addError(error: kShortPassError);
           return "";
         }
@@ -121,11 +128,17 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Password",
+        labelStyle: LabelStyle,
         hintText: "Enter your password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.color1),
+          borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(30), right: Radius.circular(30)),
+        ),
       ),
     );
   }
@@ -154,11 +167,17 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Email",
+        labelStyle: LabelStyle,
         hintText: "Enter your email",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.color1),
+          borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(30), right: Radius.circular(30)),
+        ),
       ),
     );
   }

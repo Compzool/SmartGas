@@ -5,11 +5,11 @@ import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/views/welcome/liquid_welcome.dart';
 import 'package:smartgas/widgets/size_config.dart';
 
-
 void main() async {
   //WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   SizeConfig();
+  //Get.changeTheme(ThemeData.dark());
   runApp(const MyApp());
 }
 
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Smart Gas',
       initialRoute: '/',
+      //theme: ThemeData.dark(),
       getPages: [
         GetPage(name: '/', page: () => GreetingPage()),
       ],
