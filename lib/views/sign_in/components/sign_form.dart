@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartgas/colors/colors.dart';
 import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/form_error.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
@@ -52,7 +53,7 @@ class _SignFormState extends State<SignForm> {
             children: [
               Checkbox(
                 value: remember,
-                activeColor: kPrimaryColor,
+                activeColor: AppColors.color1,
                 onChanged: (value) {
                   setState(() {
                     remember = value;
