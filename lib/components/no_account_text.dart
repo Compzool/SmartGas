@@ -22,7 +22,7 @@ class NoAccountText extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () => Get.to(
-            () => CompleteProfileScreen(),
+            () => SignUpScreen(),
             duration: Duration(seconds: 1),
             transition: Transition.fade,
           ),

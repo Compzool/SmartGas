@@ -1,9 +1,14 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smartgas/colors/colors.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:smartgas/controllers/location_controller.dart';
+import 'package:smartgas/controllers/userController.dart';
+import 'package:smartgas/models/user.dart';
+import 'package:smartgas/services/database.dart';
 import 'package:smartgas/views/complete_profile/complete_profile_screen.dart';
 import 'package:smartgas/views/login_success/login_success_screen.dart';
 import 'package:smartgas/views/sign_in/sign_in_screen.dart';
@@ -11,17 +16,20 @@ import 'package:smartgas/views/welcome/liquid_welcome.dart';
 
 class AuthController extends GetxController{
   static AuthController instance = Get.find();
+  UserController userController = Get.put(UserController());
+  SmartUser? _currentUser;
   late Rx<User?> _user;
   FirebaseAuth auth = FirebaseAuth.instance;
   bool isVerified = false;
   Timer? timer;
-  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email','https://www.googleapis.com/auth/contacts.readonly','https://www.googleapis.com/auth/userinfo.profile']);
   @override
   void onReady(){
     super.onReady();
     _user = Rx<User?>(auth.currentUser);
-    _user.bindStream(auth.userChanges());
-
+    _user.bindStream(auth.userChanges()); 
+    // _currentUser?.uid = auth.currentUser!.uid;
+    // _currentUser?.email = (auth.currentUser!.email).toString();
     ever(_user, _initialScreen);
   }
 
@@ -30,7 +38,9 @@ class AuthController extends GetxController{
       print("Greetings Page");
       Get.offAll(() => GreetingPage());
     }else{
-       Get.offAll(() => LoginSuccessScreen());
+       
+       //Get.offAll(() => LoginSuccessScreen());
+       
 
       //   if (user != null && !user.emailVerified) {
       //       await user.sendEmailVerification();
@@ -61,11 +71,21 @@ class AuthController extends GetxController{
 //     timer?.cancel();
 //     super.dispose();
 //   }
-  void register(String email, String password) async{
+  void register(String email, String password,String fullName, String phoneNumber,String address) async{
     try {
-        await auth.createUserWithEmailAndPassword(email: email, password: password);
-        Get.to(()=>CompleteProfileScreen());
-       
+        UserCredential _authResult =  await auth.createUserWithEmailAndPassword(email: email, password: password);
+
+        SmartUser _user = SmartUser(
+        uid: _authResult.user!.uid,
+        fullName: fullName,
+        email: email,
+        phoneNumber: phoneNumber,
+        address: address,
+        );
+        if (await Database().createNewUser(_user)) {
+        userController.user = _user;
+        Get.off(()=>SignInScreen());
+      }
 
     }catch(e){
       
@@ -83,7 +103,9 @@ class AuthController extends GetxController{
   }
   void Login(String email, String password) async{
     try {
-        await auth.signInWithEmailAndPassword(email: email, password: password);
+        UserCredential _authResult = await auth.signInWithEmailAndPassword(email: email, password: password);
+         userController.user =
+          await Database().getUser(_authResult.user!.uid);
 
     }catch(e){
       
@@ -129,10 +151,25 @@ Future<User?> google_signIn() async{
       idToken: googleAuth.idToken,                                           //create a login credential
       accessToken: googleAuth.accessToken
     );
-    final User? user = (await auth.signInWithCredential(credential).then((value) => Get.offAll(LoginSuccessScreen())));  //if credential success, then using _auth signed in user data will be stored 
+    
+    final UserCredential _authResult = await auth.signInWithCredential(credential);  //if credential success, then using _auth signed in user data will be stored 
+    SmartUser _user = SmartUser(
+        uid: _authResult.user!.uid,
+        fullName: _authResult.user!.displayName,
+        email:_authResult.user!.email,
+        phoneNumber: _authResult.user!.phoneNumber,
+        address: LocationController.instance.address.value
+        );
+        
+        if (await Database().createNewUser(_user)) {
+        userController.user = _user;
+        Get.off(()=>LoginSuccessScreen());
+      }
+
  }
   void Logout() async{
     await auth.signOut();
     await googleSignIn.disconnect();
+    userController.clear();
   }
 }  
