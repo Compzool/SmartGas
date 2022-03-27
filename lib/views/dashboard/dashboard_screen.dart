@@ -9,12 +9,14 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       body: Container(
         height: double.maxFinite,
+        width: double.maxFinite,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/eco.jpg'),
-            fit: BoxFit.cover,
-            opacity: 0.33,
-          ),
+          color: Colors.white,
+          // image: DecorationImage(
+          //   image: AssetImage('assets/images/eco11.jpg'),
+          //   fit: BoxFit.cover,
+          //   opacity: 0.6,
+          // ),
         ),
         child: Body(),
       ),

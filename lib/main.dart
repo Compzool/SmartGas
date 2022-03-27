@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/views/dashboard/dashboard_screen.dart';
+import 'package:smartgas/views/sign_in/sign_in_screen.dart';
 import 'package:smartgas/views/welcome/liquid_welcome.dart';
 import 'package:smartgas/widgets/size_config.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       //theme: ThemeData.dark(),
       getPages: [
         GetPage(name: '/', page: () => GreetingPage()),
-        //GetPage(name: '/', page: () => Dashboard()),
+        GetPage(name: '/SignInScreen', page: () => SignInScreen()),
       ],
     );
   }

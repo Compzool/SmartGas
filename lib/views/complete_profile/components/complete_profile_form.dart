@@ -17,7 +17,7 @@ class CompleteProfileForm extends StatefulWidget {
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
   //LocationController locationController = Get.put(LocationController());
-  LocationController locationController = Get.find(); 
+  LocationController locationController = Get.find();
   final List<String?> errors = [];
   String? firstName;
   String? lastName;
@@ -57,7 +57,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(()=>OtpScreen());
+                Get.to(() => OtpScreen());
               }
             },
           ),
@@ -93,13 +93,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     //   ),
     // );
     return Obx(
-              () => 
-              Text(
-                locationController.address.value,
-                style: TextStyle(color: Colors.lightGreen, fontSize: 25),
-              ),
-
-            );
+      () => Text(
+        locationController.address.value,
+        style: TextStyle(color: Colors.lightGreen, fontSize: 25),
+      ),
+    );
   }
 
   TextFormField buildPhoneNumberFormField() {
