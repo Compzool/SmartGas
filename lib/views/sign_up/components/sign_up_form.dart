@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/default_button.dart';
 import 'package:smartgas/components/form_error.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
+import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/views/complete_profile/complete_profile_screen.dart';
 
 import 'package:smartgas/widgets/constants.dart';
@@ -18,6 +20,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  UserInformation userInformation = Get.put(UserInformation());
   String? email;
   String? password;
   String? conform_password;
@@ -57,7 +60,7 @@ class _SignUpFormState extends State<SignUpForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                AuthController.instance.register(email!, password!);
+                Get.to(()=>CompleteProfileScreen());
               }
             },
           ),
@@ -108,7 +111,9 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) {
+      password = newValue;
+      userInformation.password.value = password.toString();},
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -147,7 +152,9 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) {
+         email = newValue;
+      userInformation.email.value = email.toString();},
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);

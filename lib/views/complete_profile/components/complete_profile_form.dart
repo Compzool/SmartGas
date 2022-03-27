@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/default_button.dart';
 import 'package:smartgas/components/form_error.dart';
+import 'package:smartgas/controllers/authentication_controller.dart';
+import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/controllers/location_controller.dart';
 import 'package:smartgas/views/otp/otp_screen.dart';
+import 'package:smartgas/views/sign_up/components/sign_up_form.dart';
 
 import 'package:smartgas/widgets/constants.dart';
 import 'package:smartgas/widgets/size_config.dart';
@@ -17,10 +20,13 @@ class CompleteProfileForm extends StatefulWidget {
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
   //LocationController locationController = Get.put(LocationController());
+  SignUpForm testing = SignUpForm();
   LocationController locationController = Get.find();
+  UserInformation userInformation = Get.find();
   final List<String?> errors = [];
   String? firstName;
   String? lastName;
+  late String? fullName = firstName! + " " + lastName!;
   String? phoneNumber;
   String? address;
 
@@ -57,7 +63,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(() => OtpScreen());
+                AuthController.instance.register(userInformation.email.value, userInformation.password.value, fullName!, phoneNumber!, locationController.address.value);
+
               }
             },
           ),
@@ -103,12 +110,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      onSaved: (newValue) => phoneNumber = newValue,
+      onSaved: (newValue) { phoneNumber = newValue;
+      print(phoneNumber);
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNumberNullError);
         }
-        return null;
+        phoneNumber = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -130,7 +139,22 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildLastNameFormField() {
     return TextFormField(
-      onSaved: (newValue) => lastName = newValue,
+      onSaved: (newValue) { lastName = newValue;
+      print(lastName);
+      },
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        lastName = value;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
       decoration: InputDecoration(
         labelText: "Last Name",
         hintText: "Enter your last name",
@@ -144,12 +168,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildFirstNameFormField() {
     return TextFormField(
-      onSaved: (newValue) => firstName = newValue,
+      onSaved: (newValue) {  firstName = newValue;
+      print(firstName);
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
         }
-        return null;
+        firstName = value;
       },
       validator: (value) {
         if (value!.isEmpty) {

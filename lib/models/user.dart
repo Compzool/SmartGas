@@ -1,21 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SmartUser{
-  late String uid;
-  late String email;
-  late String firstName;
-  late String lastName;
-  late String phoneNumber;
-  late String address;
-  late Timestamp accountCreated;
+   String? uid;
+   String? email;
+   String? fullName;
+   String? phoneNumber;
+   String? address;
 
-  SmartUser({required this.uid,
-  required this.email,
-  required this.firstName,
-  required this.lastName,
-  required this.phoneNumber,
-  required this.address,
-  required this.accountCreated,
+  SmartUser({ this.uid,
+   this.email,
+   this.fullName,
+   this.phoneNumber,
+   this.address,
   });
+
+  SmartUser.fromDocumentSnapshot(DocumentSnapshot doc){
+    uid = doc.id;
+    email = doc["email"];
+    fullName = doc["fullName"];
+    phoneNumber = doc["phone"];
+    address = doc["address"];
+    
+  }
 
 }
