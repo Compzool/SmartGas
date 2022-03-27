@@ -64,6 +64,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 AuthController.instance.register(userInformation.email.value, userInformation.password.value, fullName!, phoneNumber!, locationController.address.value);
+
               }
             },
           ),
@@ -99,13 +100,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     //   ),
     // );
     return Obx(
-              () => 
-              Text(
-                locationController.address.value,
-                style: TextStyle(color: Colors.lightGreen, fontSize: 25),
-              ),
-
-            );
+      () => Text(
+        locationController.address.value,
+        style: TextStyle(color: Colors.lightGreen, fontSize: 25),
+      ),
+    );
   }
 
   TextFormField buildPhoneNumberFormField() {
