@@ -3,11 +3,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
-class LocationController extends GetxController{
- static LocationController instance = Get.find();
- var latitude = 'Getting Latitude..'.obs;
+class LocationController extends GetxController {
+  static LocationController instance = Get.find();
+  var latitude = 'Getting Latitude..'.obs;
   var longitude = 'Getting Longitude..'.obs;
   var address = 'Getting Address..'.obs;
+  late double Map1;
+  late double Map2;
   late StreamSubscription<Position> streamSubscription;
 
   @override
@@ -63,6 +65,8 @@ class LocationController extends GetxController{
         Geolocator.getPositionStream().listen((Position position) {
       latitude.value = 'Latitude : ${position.latitude}';
       longitude.value = 'Longitude : ${position.longitude}';
+      Map1 = position.latitude;
+      Map2 = position.longitude;
       getAddressFromLatLang(position);
     });
   }
@@ -73,6 +77,4 @@ class LocationController extends GetxController{
     Placemark place = placemark[0];
     address.value = 'Address : ${place.locality},${place.country}';
   }
-
-
 }

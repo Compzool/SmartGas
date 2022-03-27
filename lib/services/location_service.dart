@@ -1,54 +1,36 @@
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
+import 'package:url_launcher/url_launcher.dart';
 
-class LocationService {
-  final String key = 'AIzaSyBQiDqpvn2YHFFSvjQAhIaw3oGP92cxzWk-Uk';
 
-  Future<String> getPlaceId(String input) async {
-    final String url =
-        'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=$input&inputtype=textquery&key=$key';
+class EnterMap {
+ static void launchMap(String address) async {
+  String query = Uri.encodeComponent(address);
+  String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
 
-    var response = await http.get(Uri.parse(url));
-    var json = convert.jsonDecode(response.body);
-    var placeId = json['candidates'][0]['place_id'] as String;
-
-    return placeId;
+  if (await canLaunch(googleUrl)) {
+    await launch(googleUrl);
   }
+}
+static void navigateTo(double lat, double lng) async {
+   var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+   if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+   } else {
+      throw 'Could not launch ${uri.toString()}';
+   }
+}
 
-  Future<Map<String, dynamic>> getPlace(String input) async {
-    final placeId = await getPlaceId(input);
+}
+class MapUtils {
 
-    final String url =
-        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
+  MapUtils._();
 
-    var response = await http.get(Uri.parse(url));
-    var json = convert.jsonDecode(response.body);
-    var results = json['result'] as Map<String, dynamic>;
-
-    print(results);
-    return results;
+  static Future<void> openMap(double latitude, double longitude) async {
+    String googleUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    if (await canLaunch(googleUrl)) {
+      await launch(googleUrl);
+    } else {
+      throw 'Could not open the map.';
+    }
   }
-
-  Future<Map<String, dynamic>> getDirections(
-      String origin, String destination) async {
-    final String url =
-        'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
-
-    var response = await http.get(Uri.parse(url));
-    var json = convert.jsonDecode(response.body);
-
-    var results = {
-      'bounds_ne': json['routes'][0]['bounds']['northeast'],
-      'bounds_sw': json['routes'][0]['bounds']['southwest'],
-      'start_location': json['routes'][0]['legs'][0]['start_location'],
-      'end_location': json['routes'][0]['legs'][0]['end_location'],
-      'polyline': json['routes'][0]['overview_polyline']['points'],
-      'polyline_decoded': PolylinePoints().decodePolyline(json['routes'][0]['overview_polyline']['points']),
-    };
-
-    print(results);
-
-    return results;
-  }
+  
 }
