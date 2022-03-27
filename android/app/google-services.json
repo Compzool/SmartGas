@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "250375398095",
+    "project_id": "smartgas-cdd12",
+    "storage_bucket": "smartgas-cdd12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250375398095:android:6ff35d221951c0c779cdba",
+        "android_client_info": {
+          "package_name": "com.example.smartgas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250375398095-aoei50g9dnddjkh29jvtd6jfnlfb3b4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartgas",
+            "certificate_hash": "bcc445992e30ed6684147a26ef17034b611e3648"
+          }
+        },
+        {
+          "client_id": "250375398095-5gnptpbge2f5f7k7oq7264143aob85q6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQiDqpvn2YHFFSvjQAhIaw3oGP92cxzWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250375398095-5gnptpbge2f5f7k7oq7264143aob85q6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
