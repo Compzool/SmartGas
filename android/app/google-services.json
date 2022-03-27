@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "250375398095-aoei50g9dnddjkh29jvtd6jfnlfb3b4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartgas",
+            "certificate_hash": "bcc445992e30ed6684147a26ef17034b611e3648"
+          }
+        },
+        {
           "client_id": "250375398095-5gnptpbge2f5f7k7oq7264143aob85q6.apps.googleusercontent.com",
           "client_type": 3
         }
