@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartgas/controllers/location_controller.dart';
 import 'package:smartgas/views/dashboard/dashboard_screen.dart';
 import 'package:smartgas/views/wallet/wallet.dart';
-
+import 'package:smartgas/services/location_service.dart';
 import 'bottom_bar_item.dart';
 
 class BtmBar extends StatelessWidget {
@@ -26,7 +27,10 @@ class BtmBar extends StatelessWidget {
           BtmNavItem(
             text: 'Discover',
             icon: Icons.location_on_outlined,
-            whenTap: () {},
+            whenTap: () {
+             //EnterMap.launchMap("Gas Station");
+              
+            },
           ),
           BtmNavItem(
             text: 'History',
