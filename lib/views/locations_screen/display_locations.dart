@@ -67,8 +67,8 @@ class _DisplayLocationsState extends State<DisplayLocations> {
           currentIndex = index;
         }),
         elevation: 0,
-        unselectedItemColor: Colors.white54,
-        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.greenAccent,
         backgroundColor: HexColor("#f9e8d8"),
         showSelectedLabels: true,
         showUnselectedLabels: false,

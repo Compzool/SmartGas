@@ -40,7 +40,7 @@ class _LocationWidgetState extends State<LocationWidget> {
             child: GestureDetector(
               onPanUpdate: onPanUpdate,
               onTap: () {
-                Get.to(() => GasDetails(index: widget.index),
+                Get.to(() => GasDetails(location: widget.location,index: widget.index),
                     transition: Transition.fade);
               },
               child: ImageWidget(location: widget.location),

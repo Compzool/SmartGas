@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:smartgas/controllers/location_controller.dart';
+import 'package:smartgas/models/location.dart';
+import 'package:smartgas/services/location_service.dart';
 
 class GasDetails extends StatelessWidget {
   final int index;
-  const GasDetails({Key? key, required this.index}) : super(key: key);
+  final Location location;
+  const GasDetails({Key? key, required this.location, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List images = ["medco.jpg", "IPT.jpg", "hypco.png"];
     double width = MediaQuery.of(context).size.width * 0.9;
     double height = MediaQuery.of(context).size.height * 0.35;
     return Scaffold(
@@ -56,7 +60,7 @@ class GasDetails extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
-                        image: AssetImage("assets/images/${images[index]}"),
+                        image: AssetImage(location.urlImage),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -139,7 +143,7 @@ class GasDetails extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(left: 20),
             child: Text(
-              "Mingles Gas Station",
+              location.name,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
@@ -154,7 +158,7 @@ class GasDetails extends StatelessWidget {
                   WidgetSpan(
                     child: RatingBar.builder(
                       itemSize: 18,
-                      initialRating: 3,
+                      initialRating: (location.starRating).toDouble(),
                       minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: true,
@@ -211,14 +215,14 @@ class GasDetails extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(left: 20),
             child: Text(
-              "Beirut Arab University",
+              "${location.addressLine1}",
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Row(
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -297,7 +301,9 @@ class GasDetails extends StatelessWidget {
           ),
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                EnterMap.launchMap(location.addressLine1);
+              },
               child: RichText(
                   text: TextSpan(children: [
                 TextSpan(
