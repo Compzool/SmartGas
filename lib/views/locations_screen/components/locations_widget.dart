@@ -25,7 +25,7 @@ class _LocationsWidgetState extends State<LocationsWidget> {
               itemBuilder: (context, index) {
                 final location = locations[index];
 
-                return LocationWidget(location: location);
+                return LocationWidget(location: location,index: index,);
               },
               onPageChanged: (index) => setState(() => pageIndex = index),
             ),

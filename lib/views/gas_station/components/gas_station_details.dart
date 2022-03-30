@@ -3,17 +3,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class Gas extends StatelessWidget {
-  const Gas({Key? key}) : super(key: key);
+class GasDetails extends StatelessWidget {
+  final int index;
+  const GasDetails({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
-    List images = [
-      "medco.jpg",
-      "IPT.jpg",
-      "h"
-    ];
+    List images = ["medco.jpg", "IPT.jpg", "hypco.png"];
     double width = MediaQuery.of(context).size.width * 0.9;
     double height = MediaQuery.of(context).size.height * 0.35;
     return Scaffold(
@@ -60,7 +56,7 @@ class Gas extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
-                        image: AssetImage("assets/images/medco.jpg"),
+                        image: AssetImage("assets/images/${images[index]}"),
                         fit: BoxFit.cover),
                   ),
                 ),

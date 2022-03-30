@@ -8,8 +8,9 @@ import 'package:smartgas/views/locations_screen/components/image_widget.dart';
 
 class LocationWidget extends StatefulWidget {
   final Location location;
-
-  const LocationWidget({Key? key, required this.location}) : super(key: key);
+  final int index;
+  const LocationWidget({Key? key, required this.location, required this.index})
+      : super(key: key);
 
   @override
   _LocationWidgetState createState() => _LocationWidgetState();
@@ -17,7 +18,6 @@ class LocationWidget extends StatefulWidget {
 
 class _LocationWidgetState extends State<LocationWidget> {
   bool isExpanded = false;
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -40,7 +40,8 @@ class _LocationWidgetState extends State<LocationWidget> {
             child: GestureDetector(
               onPanUpdate: onPanUpdate,
               onTap: () {
-                Get.to(() => Gas(), transition: Transition.fade);
+                Get.to(() => GasDetails(index: widget.index),
+                    transition: Transition.fade);
               },
               child: ImageWidget(location: widget.location),
             ),
