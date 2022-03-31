@@ -12,6 +12,7 @@ class DiscoverStation extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      extendBody: true,
       body: Stack(
         children: [
           SizedBox(
@@ -131,7 +132,8 @@ class DiscoverStation extends StatelessWidget {
                                   horizontal: 20,
                                 ),
                                 child: GestureDetector(
-                                  onTap: () => EnterMap.launchMap("Gas Station"),
+                                  onTap: () =>
+                                      EnterMap.launchMap("Gas Station"),
                                   child: const Text(
                                     'Enter Map Now',
                                     style: TextStyle(

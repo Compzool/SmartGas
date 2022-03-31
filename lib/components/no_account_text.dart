@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/views/complete_profile/complete_profile_screen.dart';
+import 'package:smartgas/views/home_navigator/home_navigator.dart';
 import 'package:smartgas/views/sign_up/sign_up_screen.dart';
 
 import 'package:smartgas/widgets/constants.dart';
@@ -41,7 +42,7 @@ class NoAccountText extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () => Get.to(
-            () => Dashboard(),
+            () => HomeNavigator(),
             duration: Duration(seconds: 1),
             transition: Transition.fade,
           ),

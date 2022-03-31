@@ -113,10 +113,10 @@ class Body extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.04,
             ),
             GasPrices1(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-            BtmBar(),
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height * 0.05,
+            // ),
+            // BtmBar(),
           ],
         ),
       ),
