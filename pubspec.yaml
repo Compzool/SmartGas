@@ -55,6 +55,11 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   hexcolor: ^2.0.6
   curved_navigation_bar: ^1.0.3
+  syncfusion_flutter_charts: ^19.4.56
+  qr_code_scanner: ^0.5.2
+  #syncfusion_flutter_charts: ^19.4.56
+  toggle_switch: ^1.4.0
+  syncfusion_flutter_gauges: ^19.4.56
   
 
 dev_dependencies:
@@ -84,7 +89,7 @@ flutter:
       - assets/images/
       - assets/fonts/
       - assets/icons/
-
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

@@ -1,9 +1,18 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartgas/controllers/carstats_controller.dart';
+import 'package:smartgas/views/car_details/car_details.dart';
+import 'package:smartgas/views/car_stats/car_data.dart';
+import 'package:smartgas/views/car_stats/main.dart';
+import 'package:smartgas/views/electric_car/electric_car.dart';
 import 'package:smartgas/views/gas_station/gas_station_discover.dart';
+import 'package:smartgas/views/profile/profile_page.dart';
 import 'package:smartgas/views/wallet/wallet.dart';
 
 import '../dashboard/dashboard_screen.dart';
+import '../locations_screen/display_locations.dart';
 
 class HomeNavigator extends StatefulWidget {
   const HomeNavigator({Key? key}) : super(key: key);
@@ -18,19 +27,37 @@ class _HomeNavigatorState extends State<HomeNavigator> {
   @override
   Widget build(BuildContext context) {
     final items = [
-      Icon(Icons.home, size: 30),
+      Icon(CupertinoIcons.car_detailed, size: 30),
       Icon(Icons.account_balance_wallet, size: 30),
       Icon(Icons.dashboard, size: 30),
-      Icon(Icons.notifications, size: 30),
+      Icon(CupertinoIcons.location_fill, size: 30),
       Icon(Icons.person, size: 30),
     ];
-    final screens = [
-      Dashboard(),
-      Wallet(),
-      Dashboard(),
-      DiscoverStation(),
-      Dashboard(),
-    ];
+    var carStatsCont = Get.put(CarStatsCont());
+    var screen1;
+    if (carStatsCont.isElectric.value && !carStatsCont.isStats.value) {
+      screen1 = ElectricCar();
+    } else if (carStatsCont.isStats.value && !carStatsCont.isElectric.value) {
+      screen1 = CarStats();
+    } else {
+      screen1 = CarDetails();
+    }
+
+    // final screens = [
+    //   screen1,
+    //   Wallet(),
+    //   Dashboard(),
+    //   DisplayLocations(),
+    //   ProfilePage(),
+    // ];
+    // final screens = RxList([
+    //   screen1,
+    //   Wallet(),
+    //   Dashboard(),
+    //   DisplayLocations(),
+    //   ProfilePage(),
+    // ]);
+
     return Scaffold(
       // body: Container(
       //   height: double.maxFinite,
@@ -45,14 +72,18 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       //   ),
       //   child: Body(),
       // ),
-      body: screens[_page],
+      extendBody: true,
+      resizeToAvoidBottomInset: true,
+      //body: screens[_page],
+      body: carStatsCont.screens.value[_page],
       bottomNavigationBar: CurvedNavigationBar(
         items: items,
         index: _page,
-        color: Color(0x332F2F2F),
+        //color: Color(0x332F2F2F),
+        color: Color.fromARGB(200, 131, 131, 131),
         backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 600),
+        animationDuration: Duration(milliseconds: 500),
         onTap: (index) => setState(() => _page = index),
       ),
     );

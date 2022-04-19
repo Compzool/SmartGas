@@ -12,7 +12,7 @@ class DiscoverStation extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      extendBody: true,
+      //extendBody: false,
       body: Stack(
         children: [
           SizedBox(

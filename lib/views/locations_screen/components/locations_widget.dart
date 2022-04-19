@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartgas/services/locations.dart';
 
-
 import 'location_widget.dart';
 
 class LocationsWidget extends StatefulWidget {
@@ -25,16 +24,19 @@ class _LocationsWidgetState extends State<LocationsWidget> {
               itemBuilder: (context, index) {
                 final location = locations[index];
 
-                return LocationWidget(location: location,index: index,);
+                return LocationWidget(
+                  location: location,
+                  index: index,
+                );
               },
               onPageChanged: (index) => setState(() => pageIndex = index),
             ),
           ),
-          Text(
-            '${pageIndex + 1}/${locations.length}',
-            style: TextStyle(color: Colors.white70),
-          ),
-          SizedBox(height: 12)
+          // Text(
+          //   '${pageIndex + 1}/${locations.length}',
+          //   style: TextStyle(color: Colors.white70),
+          // ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
         ],
       );
 }

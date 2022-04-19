@@ -9,7 +9,9 @@ class Wallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: SafeArea(
+        bottom: false,
         child: Container(
           height: double.maxFinite,
           decoration: const BoxDecoration(color: Colors.white),
