@@ -17,8 +17,6 @@ class Body extends StatelessWidget {
     String carModel1 = 'Mercedes Benz C300';
     String carModel2 = 'Tesla Model X';
     var carStatsCont = Get.put(CarStatsCont());
-    carStatsCont.isElectric.value = false;
-    carStatsCont.isStats.value = true;
     List<double> tirePressureLtbRtb = [
       2.2,
       2.2,
@@ -68,24 +66,18 @@ class Body extends StatelessWidget {
                             child: Text('Car Stats'),
                             onPressed: () {
                               carStatsCont.screens.value[0] = CarStats();
-                              carStatsCont.isElectric.value = false;
-                              carStatsCont.isStats.value = true;
                             },
                           ),
                           FlatButton(
                             child: Text('Tire Pressure'),
                             onPressed: () {
                               carStatsCont.screens.value[0] = CarDetails();
-                              carStatsCont.isElectric.value = false;
-                              carStatsCont.isStats.value = false;
                             },
                           ),
                           FlatButton(
                             child: Text('Tesla Model X'),
                             onPressed: () {
                               carStatsCont.screens.value[0] = ElectricCar();
-                              carStatsCont.isElectric.value = true;
-                              carStatsCont.isStats.value = false;
                               carStatsCont.update();
                             },
                           ),

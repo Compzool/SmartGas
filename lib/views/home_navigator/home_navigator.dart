@@ -34,14 +34,6 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       Icon(Icons.person, size: 30),
     ];
     var carStatsCont = Get.put(CarStatsCont());
-    var screen1;
-    if (carStatsCont.isElectric.value && !carStatsCont.isStats.value) {
-      screen1 = ElectricCar();
-    } else if (carStatsCont.isStats.value && !carStatsCont.isElectric.value) {
-      screen1 = CarStats();
-    } else {
-      screen1 = CarDetails();
-    }
 
     // final screens = [
     //   screen1,

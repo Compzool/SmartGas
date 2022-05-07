@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartgas/views/add_car/add_car.dart';
 
 class MyCar extends StatelessWidget {
   @override
@@ -68,7 +70,9 @@ class MyCar extends StatelessWidget {
               width: 80,
               height: 40,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => Get.to(
+                  () => NewVehicle(),
+                ),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
                   shape: MaterialStateProperty.all(
@@ -77,7 +81,13 @@ class MyCar extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Text('Tesla'),
+                child: const Text(
+                  '+',
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
             ),
           ],

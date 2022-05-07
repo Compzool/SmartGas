@@ -88,8 +88,7 @@ class _FuelCarState extends State<FuelCar> {
                                   child: Text('Car Stats'),
                                   onPressed: () {
                                     carStatsCont.screens.value[0] = CarStats();
-                                    carStatsCont.isElectric.value = false;
-                                    carStatsCont.isStats.value = true;
+                                    () => Get.appUpdate();
                                   },
                                 ),
                                 FlatButton(
@@ -97,8 +96,7 @@ class _FuelCarState extends State<FuelCar> {
                                   onPressed: () {
                                     carStatsCont.screens.value[0] =
                                         CarDetails();
-                                    carStatsCont.isElectric.value = false;
-                                    carStatsCont.isStats.value = false;
+                                    () => Get.appUpdate();
                                   },
                                 ),
                                 FlatButton(
@@ -106,8 +104,6 @@ class _FuelCarState extends State<FuelCar> {
                                   onPressed: () {
                                     carStatsCont.screens.value[0] =
                                         ElectricCar();
-                                    carStatsCont.isElectric.value = true;
-                                    carStatsCont.isStats.value = false;
                                     carStatsCont.update();
                                   },
                                 ),

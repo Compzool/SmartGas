@@ -60,6 +60,9 @@ dependencies:
   #syncfusion_flutter_charts: ^19.4.56
   toggle_switch: ^1.4.0
   syncfusion_flutter_gauges: ^19.4.56
+  glassmorphism: ^3.0.0
+  flutter_credit_card:
+  flutter_colorpicker: 
   
 
 dev_dependencies:
