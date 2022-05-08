@@ -1,5 +1,7 @@
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/default_button.dart';
 import 'package:smartgas/components/form_error.dart';
@@ -20,6 +22,8 @@ class CompleteProfileForm extends StatefulWidget {
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
   //LocationController locationController = Get.put(LocationController());
+  final dateController = TextEditingController();
+  //final format = DateFormat("yyyy-MM-dd");
   SignUpForm testing = SignUpForm();
   LocationController locationController = Get.find();
   UserInformation userInformation = Get.find();
@@ -29,6 +33,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   late String? fullName = firstName! + " " + lastName!;
   String? phoneNumber;
   String? address;
+  DateTime? DateOfBirth;
 
   void addError({String? error}) {
     if (!errors.contains(error))
@@ -56,6 +61,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPhoneNumberFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
+          buildAgeFormField(dateController),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildAddressFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
@@ -63,8 +70,12 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                AuthController.instance.register(userInformation.email.value, userInformation.password.value, fullName!, phoneNumber!, locationController.address.value);
-
+                AuthController.instance.register(
+                    userInformation.email.value,
+                    userInformation.password.value,
+                    fullName!,
+                    phoneNumber!,
+                    locationController.address.value);
               }
             },
           ),
@@ -110,8 +121,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      onSaved: (newValue) { phoneNumber = newValue;
-      print(phoneNumber);
+      onSaved: (newValue) {
+        phoneNumber = newValue;
+        print(phoneNumber);
       },
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -139,8 +151,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildLastNameFormField() {
     return TextFormField(
-      onSaved: (newValue) { lastName = newValue;
-      print(lastName);
+      onSaved: (newValue) {
+        lastName = newValue;
+        print(lastName);
       },
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -168,8 +181,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildFirstNameFormField() {
     return TextFormField(
-      onSaved: (newValue) {  firstName = newValue;
-      print(firstName);
+      onSaved: (newValue) {
+        firstName = newValue;
+        print(firstName);
       },
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -193,5 +207,51 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
     );
+  }
+
+  Widget buildAgeFormField(TextEditingController dateController) {
+    return DateTimeField(
+      decoration: InputDecoration(
+        hintText: "Date Of Birth",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+      controller: dateController,
+      format: DateFormat("yyyy-MM-dd"),
+      onShowPicker: (context, currentValue) {
+        return showDatePicker(
+          context: context,
+          firstDate: DateTime(1900),
+          initialDate: currentValue ?? DateTime.now(),
+          lastDate: DateTime(2100),
+        );
+      },
+    );
+    // return TextFormField(
+    //   onSaved: (newValue) {  DateOfBirth = newValue as DateTime;
+    //   print(firstName);
+    //   },
+    //   onChanged: (value) {
+    //     if (value.isNotEmpty) {
+    //       removeError(error: kNamelNullError);
+    //     }
+    //     firstName = value;
+    //   },
+    //   validator: (value) {
+    //     if (value!.isEmpty) {
+    //       addError(error: kNamelNullError);
+    //       return "";
+    //     }
+    //     return null;
+    //   },
+    //   decoration: InputDecoration(
+    //     labelText: "First Name",
+    //     hintText: "Enter your first name",
+    //     // If  you are using latest version of flutter then lable text and hint text shown like this
+    //     // if you r using flutter less then 1.20.* then maybe this is not working properly
+    //     floatingLabelBehavior: FloatingLabelBehavior.always,
+    //     suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+    //   ),
+    // );
   }
 }

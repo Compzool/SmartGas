@@ -6,12 +6,14 @@ class SmartUser{
    String? fullName;
    String? phoneNumber;
    String? address;
+   String? DateOfBirth;
 
   SmartUser({ this.uid,
    this.email,
    this.fullName,
    this.phoneNumber,
    this.address,
+   this.DateOfBirth
   });
 
   SmartUser.fromDocumentSnapshot(DocumentSnapshot doc){
@@ -20,6 +22,7 @@ class SmartUser{
     fullName = doc["fullName"];
     phoneNumber = doc["phone"];
     address = doc["address"];
+    DateOfBirth = doc["DateOfBirth"];
     
   }
 
