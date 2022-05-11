@@ -7,7 +7,7 @@ class LocationController extends GetxController {
   static LocationController instance = Get.find();
   var latitude = 'Getting Latitude..'.obs;
   var longitude = 'Getting Longitude..'.obs;
-  var address = 'Getting Address..'.obs;
+  final address = 'Getting Address..'.obs;
   late double Map1;
   late double Map2;
   late StreamSubscription<Position> streamSubscription;
@@ -75,6 +75,6 @@ class LocationController extends GetxController {
     List<Placemark> placemark =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemark[0];
-    address.value = 'Address : ${place.locality},${place.country}';
+    address.value = '${place.locality},${place.country}';
   }
 }

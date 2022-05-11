@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartgas/controllers/userController.dart';
 
 import '../dashboard/components/bottom_bar.dart';
 import 'components/my_wallet.dart';
@@ -26,9 +27,9 @@ class Wallet extends StatelessWidget {
                     const Padding(
                       padding: const EdgeInsets.fromLTRB(10.0, 60.0, 0.0, 0.0),
                     ),
-                    const CircleAvatar(
+                     CircleAvatar(
                       backgroundImage: NetworkImage(
-                          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/251px-Elon_Musk_Royal_Society_%28crop2%29.jpg'),
+                          UserController.instance.user.pictureUrl.toString()),
                       radius: 20.0,
                     ),
                     SizedBox(
@@ -36,7 +37,7 @@ class Wallet extends StatelessWidget {
                           (MediaQuery.of(context).size.width.toDouble() * 0.04),
                       //width: 20.0,
                     ),
-                    const Text('Hello, elon,'),
+                     Text('Hello, ${UserController.instance.user.fullName}'),
                   ],
                 ),
                 SizedBox(

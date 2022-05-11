@@ -41,7 +41,7 @@ class NoAccountText extends StatelessWidget {
           width: 20,
         ),
         GestureDetector(
-          onTap: () => Get.to(
+          onTap: () => Get.off(
             () => HomeNavigator(),
             duration: Duration(seconds: 1),
             transition: Transition.fade,

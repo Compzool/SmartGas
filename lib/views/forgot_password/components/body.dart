@@ -4,6 +4,7 @@ import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/default_button.dart';
 import 'package:smartgas/components/form_error.dart';
 import 'package:smartgas/components/no_account_text.dart';
+import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/widgets/constants.dart';
 import 'package:smartgas/widgets/size_config.dart';
 
@@ -70,16 +71,21 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
         children: [
           TextFormField(
             keyboardType: TextInputType.emailAddress,
-            onSaved: (newValue) => email = newValue,
+            onSaved: (newValue) {
+              email = newValue;
+              print(newValue);
+            },
             onChanged: (value) {
               if (value.isNotEmpty && errors.contains(kEmailNullError)) {
                 setState(() {
                   errors.remove(kEmailNullError);
+              
                 });
               } else if (emailValidatorRegExp.hasMatch(value) &&
                   errors.contains(kInvalidEmailError)) {
                 setState(() {
                   errors.remove(kInvalidEmailError);
+                 
                 });
               }
               return null;
@@ -113,7 +119,10 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             text: "Continue",
             press: () {
               if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
                 // Do what you want to do
+                AuthController.instance.resetPassword(email!);
+                print(email);
               }
             },
           ),

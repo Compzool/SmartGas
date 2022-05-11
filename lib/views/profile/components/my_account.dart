@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartgas/controllers/authentication_controller.dart';
 
 class MyAccount extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class MyAccount extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
             child: Text(
@@ -33,11 +34,17 @@ class MyAccount extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 10),
-            child: Text(
-              'Log Out',
-              style: TextStyle(
-                color: Color(0xFFFF3C3C),
-                fontWeight: FontWeight.w600,
+            child: GestureDetector(
+              onTap: () {
+                AuthController.instance.Logout();
+                
+              },
+              child: Text(
+                'Log Out',
+                style: TextStyle(
+                  color: Color(0xFFFF3C3C),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),

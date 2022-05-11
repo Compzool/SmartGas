@@ -128,6 +128,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:smartgas/colors/colors.dart';
+import 'package:smartgas/controllers/userController.dart';
 import 'package:smartgas/views/dashboard/components/bottom_bar.dart';
 import 'package:smartgas/views/dashboard/components/bottom_bar_item.dart';
 import 'package:smartgas/views/dashboard/components/card.dart';
@@ -165,14 +166,14 @@ class Body extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(
                             // scale: 0.1,
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/251px-Elon_Musk_Royal_Society_%28crop2%29.jpg"),
+                            UserController.instance.user.pictureUrl.toString()),
                       ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
                     Text(
-                      'Hello, elon',
+                      "Welcome back ${UserController.instance.user.fullName.toString()}",
                       style: TextStyle(
                         color: Colors.grey[900],
                         fontSize: 20,

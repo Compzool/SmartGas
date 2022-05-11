@@ -63,8 +63,12 @@ dependencies:
   glassmorphism: ^3.0.0
   flutter_credit_card:
   flutter_colorpicker: 
-  
-
+  image_picker: ^0.8.5
+  firebase_storage:
+  datetime_picker_formfield: ^2.0.0
+  intl: ^0.17.0
+  shared_preferences: ^2.0.13
+  get_storage: ^2.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

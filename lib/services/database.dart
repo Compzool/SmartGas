@@ -3,51 +3,67 @@ import 'package:smartgas/models/user.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+Future createUser(SmartUser user) async{
+    final docUser = FirebaseFirestore.instance.collection('users').doc(user.id);
+    final json = user.toJson();
+    await docUser.set(json);
+    }
+    Future<SmartUser?> readSingleUser(String id) async {
+  //String id
+  //final  document = await FirebaseFirestore.instance.collection('users').doc(id).get();
+  final docUser = await FirebaseFirestore.instance.collection('users').doc(id);
+  final  snapshot = await docUser.get();
 
-  Future<bool> createNewUser(SmartUser user) async {
-    try {
-      await _firestore.collection("users").doc(user.uid).set({
-        "fullName": user.fullName,
-        "email": user.email,
-        "phone": user.phoneNumber,
-        "address": user.address,
+  if(snapshot.exists){
+    final json = snapshot.data()!;
+    return SmartUser.fromJson(json);
+}
+}
+
+  // Future<bool> createNewUser(SmartUser user) async {
+  //   try {
+  //     await _firestore.collection("users").doc(user.uid).set({
+  //       "fullName": user.fullName,
+  //       "email": user.email,
+  //       "phone": user.phoneNumber,
+  //       "address": user.address,
         
-      });
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
+  //     });
+  //     return true;
+  //   } catch (e) {
+  //     print(e);
+  //     return false;
+  //   }
+  // }
 
-  Future<SmartUser> getUser(String uid) async {
-    try {
-      DocumentSnapshot _doc =
-          await _firestore.collection("users").doc(uid).get();
+  // Future<SmartUser> getUser(String uid) async {
+  //   try {
+  //     DocumentSnapshot _doc =
+  //         await _firestore.collection("users").doc(uid).get();
 
-      return SmartUser.fromDocumentSnapshot(_doc);
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
+  //     return SmartUser.fromDocumentSnapshot(_doc);
+  //   } catch (e) {
+  //     print(e);
+  //     rethrow;
+  //   }
+  // }
 
-  Future<void> addTodo(String content, String uid) async {
-    try {
-      await _firestore
-          .collection("users")
-          .doc(uid)
-          .collection("todos")
-          .add({
-        'dateCreated': Timestamp.now(),
-        'content': content,
-        'done': false,
-      });
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
+  // Future<void> addTodo(String content, String uid) async {
+  //   try {
+  //     await _firestore
+  //         .collection("users")
+  //         .doc(uid)
+  //         .collection("todos")
+  //         .add({
+  //       'dateCreated': Timestamp.now(),
+  //       'content': content,
+  //       'done': false,
+  //     });
+  //   } catch (e) {
+  //     print(e);
+  //     rethrow;
+  //   }
+  // }
 
   // Stream<List<TodoModel>> todoStream(String uid) {
   //   return _firestore

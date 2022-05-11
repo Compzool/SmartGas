@@ -1,4 +1,11 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:smartgas/controllers/signup_controller.dart';
+import 'package:smartgas/widgets/profile_picture.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -60,44 +67,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: Container(
-                  width: 300,
-                  height: 200,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 120,
-                        height: 120,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Image(
-                          image: AssetImage('assets/images/download.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
-                        child: Text(
-                          'Elon Musk',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        'Senior Designer',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: ProfilePicture(),
               ),
               Column(
                 mainAxisSize: MainAxisSize.max,
