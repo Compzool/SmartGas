@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/views/add_car/add_car.dart';
+import 'package:smartgas/views/show_cars/show_vehicles.dart';
 
 class MyCar extends StatelessWidget {
   @override
@@ -16,10 +17,12 @@ class MyCar extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-              width: 80,
+              width: MediaQuery.of(context).size.width * 0.6,
               height: 40,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(ShowVehicles());
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.black),
                   shape: MaterialStateProperty.all(
@@ -28,43 +31,43 @@ class MyCar extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Text('BMW'),
+                child: const Text('Check Cars'),
               ),
             ),
-            Container(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-              width: 80,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.amber),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-                child: const Text('Toyota'),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-              width: 80,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.green),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-                child: const Text('Honda'),
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+            //   width: 80,
+            //   height: 40,
+            //   child: ElevatedButton(
+            //     onPressed: () {},
+            //     style: ButtonStyle(
+            //       backgroundColor: MaterialStateProperty.all(Colors.amber),
+            //       shape: MaterialStateProperty.all(
+            //         RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(20),
+            //         ),
+            //       ),
+            //     ),
+            //     child: const Text('Toyota'),
+            //   ),
+            // ),
+            // Container(
+            //   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+            //   width: 80,
+            //   height: 40,
+            //   child: ElevatedButton(
+            //     onPressed: () {},
+            //     style: ButtonStyle(
+            //       backgroundColor: MaterialStateProperty.all(Colors.green),
+            //       shape: MaterialStateProperty.all(
+            //         RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(20),
+            //         ),
+            //       ),
+            //     ),
+            //     child: const Text('Honda'),
+            //   ),
+            // ),
             Container(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
               width: 80,

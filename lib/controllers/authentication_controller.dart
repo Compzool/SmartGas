@@ -91,7 +91,7 @@ class AuthController extends GetxController {
         timer =
             Timer.periodic(Duration(seconds: 10), (_) => checkEmailVerified());
       } else {
-        await Future.delayed(const Duration(seconds: 1), () {Get.offAll(HomeNavigator());});
+        await Future.delayed(const Duration(seconds: 2), () {Get.offAll(HomeNavigator());});
         
       }
     }

@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartgas/bindings/location_binding.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
+import 'package:smartgas/controllers/car_controller.dart';
 import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/controllers/location_controller.dart';
 import 'package:smartgas/controllers/signup_controller.dart';
@@ -19,7 +20,7 @@ void main() async {
   Get.put<UserController>(UserController());
   Get.put<signUpController>(signUpController());
   Get.put<UserInformation>(UserInformation());
-
+  //Get.put<CarController>(CarController());
   AuthController.instance.Logout();
   SizeConfig();
   //Get.changeTheme(ThemeData.dark());

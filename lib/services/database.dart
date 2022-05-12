@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smartgas/controllers/userController.dart';
+import 'package:smartgas/models/cars.dart';
 import 'package:smartgas/models/user.dart';
 
 class Database {
@@ -48,24 +50,36 @@ Future createUser(SmartUser user) async{
   //   }
   // }
 
-  // Future<void> addTodo(String content, String uid) async {
-  //   try {
-  //     await _firestore
-  //         .collection("users")
-  //         .doc(uid)
-  //         .collection("todos")
-  //         .add({
-  //       'dateCreated': Timestamp.now(),
-  //       'content': content,
-  //       'done': false,
-  //     });
-  //   } catch (e) {
-  //     print(e);
-  //     rethrow;
-  //   }
-  // }
+  Future addCar(CarModel car) async {
+    try {
+      await _firestore
+          .collection("users")
+          .doc(UserController.instance.user.id)
+          .collection("cars")
+          .add({
+        "car": car.car,
+        "model": car.model,
+        "licensePlate": car.licensePlate,
+        "driversLicense": car.driversLicense,
+        "color": car.color,
+      });
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+Stream<List<CarModel>> readInfoStream(String id) => 
+FirebaseFirestore
+.instance
+.collection('users')
+.doc(id)
+.collection('cars')
+.snapshots()
+.map((snapshot) => 
+  snapshot.docs.map((doc) => CarModel.fromJson(doc.data(),doc.id)).toList()
+);
 
-  // Stream<List<TodoModel>> todoStream(String uid) {
+  // Stream<List<CarModel>> todoStream(String uid) {
   //   return _firestore
   //       .collection("users")
   //       .document(uid)
@@ -73,9 +87,9 @@ Future createUser(SmartUser user) async{
   //       .orderBy("dateCreated", descending: true)
   //       .snapshots()
   //       .map((QuerySnapshot query) {
-  //     List<TodoModel> retVal = List();
+  //     List<CarModel> retVal = [];
   //     query.documents.forEach((element) {
-  //       retVal.add(TodoModel.fromDocumentSnapshot(element));
+  //       retVal.add(CarModel.fromDocumentSnapshot(element));
   //     });
   //     return retVal;
   //   });

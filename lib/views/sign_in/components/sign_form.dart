@@ -120,6 +120,7 @@ class _SignFormState extends State<SignForm> {
                 KeyboardUtil.hideKeyboard(context);
                 // Get.to(()=>LoginSuccessScreen());
                 AuthController.instance.login(email!, password!);
+                UserInformation.instance.password.value = password!;
               }
             },
           ),

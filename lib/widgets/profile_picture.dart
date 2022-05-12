@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/controllers/signup_controller.dart';
+import 'package:smartgas/controllers/userController.dart';
 
 class ProfilePicture extends StatelessWidget {
   ProfilePicture({Key? key}) : super(key: key);
@@ -43,7 +45,7 @@ class ProfilePicture extends StatelessWidget {
                             ? FileImage(
                                     File(signupController.profilePath.value))
                                 as ImageProvider
-                            : AssetImage('assets/images/download.jpg'))),
+                            : choosePicture()!)),
               )),
           Positioned(
               bottom: 0,
@@ -149,9 +151,18 @@ class ProfilePicture extends StatelessWidget {
     );
   }
 
+  ImageProvider? choosePicture() {
+    if (UserController.instance.user.pictureUrl != null) {
+      return NetworkImage(UserController.instance.user.pictureUrl!);
+    } else {
+      return NetworkImage('assets/images/download.jpg');
+    }
+  }
+
   Future<void> takeImage(ImageSource imageSource) async {
     final pickedImage =
         await imagePicker.pickImage(source: imageSource, imageQuality: 100);
+    final updateImage = FirebaseFirestore.instance.collection('users').doc(UserController.instance.user.id);
     final dir = 'files/${pickedImage!.name}';
 
     pickedFile = File(pickedImage.path);
@@ -162,6 +173,7 @@ class ProfilePicture extends StatelessWidget {
 
     uploadedFileURL = await snapshot.ref.getDownloadURL();
     userInformation.filePath.value = uploadedFileURL.toString();
+    updateImage.update({'pictureUrl': uploadedFileURL});
     print(uploadedFileURL);
     Get.back();
   }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
+import 'package:smartgas/controllers/car_controller.dart';
+import 'package:smartgas/models/cars.dart';
+import 'package:smartgas/services/database.dart';
 
 class NewVehicle extends StatefulWidget {
   @override
@@ -9,6 +12,11 @@ class NewVehicle extends StatefulWidget {
 
 class _NewVehicleState extends State<NewVehicle> {
   Color color = Colors.black;
+  TextEditingController carController = TextEditingController();
+  TextEditingController modelController = TextEditingController();
+  TextEditingController licenseController = TextEditingController();
+  TextEditingController driverController = TextEditingController();
+  //final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +68,7 @@ class _NewVehicleState extends State<NewVehicle> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField(
+                  controller: carController,
                   decoration: InputDecoration(
                     labelText: 'Car',
                     labelStyle: const TextStyle(
@@ -90,6 +99,7 @@ class _NewVehicleState extends State<NewVehicle> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField(
+                  controller: modelController,
                   decoration: InputDecoration(
                     labelText: 'Model',
                     labelStyle: const TextStyle(
@@ -120,6 +130,7 @@ class _NewVehicleState extends State<NewVehicle> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField(
+                  controller: licenseController,
                   decoration: InputDecoration(
                     labelText: 'License Plate',
                     labelStyle: const TextStyle(
@@ -150,8 +161,9 @@ class _NewVehicleState extends State<NewVehicle> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField(
+                  controller: driverController,
                   decoration: InputDecoration(
-                    labelText: 'Identity Card Number',
+                    labelText: 'Drivers License Number',
                     labelStyle: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w300,
@@ -221,6 +233,8 @@ class _NewVehicleState extends State<NewVehicle> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
+                      uploadCar();
+                     
                       Get.back();
                     },
                     child: const Text('Add Vehicle'),
@@ -287,4 +301,36 @@ class _NewVehicleState extends State<NewVehicle> {
           ),
         ),
       );
+
+  void uploadCar() async {
+    try { 
+       print(carController.text+" "+modelController.text+" "+licenseController.text+" "+driverController.text+" "+color.value.toString());
+      CarModel car = CarModel(
+          car: carController.text,
+          model: modelController.text,
+          licensePlate: licenseController.text,
+          driversLicense: driverController.text,
+          color: color.value);
+      if (car != null) {
+        await Database().addCar(car);
+        // Get.find<CarController>().car = car;
+      }
+    } catch (e) {
+      Get.snackbar(
+        "About Car",
+        "User message",
+        backgroundColor: Color(0xFFECCB45),
+        titleText: Text(
+          "Car creation failed",
+          style: TextStyle(color: Colors.black),
+        ),
+        messageText: Text(
+          e.toString(),
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+      );
+    }
+  }
 }
