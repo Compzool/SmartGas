@@ -1,26 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SmartUser{
-   String? uid;
-   String? email;
-   String? fullName;
-   String? phoneNumber;
-   String? address;
+class SmartUser {
+  String? id;
+  String? ssn;
+  String? email;
+  String? fullName;
+  String? phoneNumber;
+  String? address;
+  String? pictureUrl;
+  String? birthday;
 
-  SmartUser({ this.uid,
-   this.email,
-   this.fullName,
-   this.phoneNumber,
-   this.address,
+  SmartUser({
+    this.id,
+    this.ssn,
+    this.email,
+    this.fullName,
+    this.phoneNumber,
+    this.address,
+    this.pictureUrl,
+    this.birthday,
   });
-
-  SmartUser.fromDocumentSnapshot(DocumentSnapshot doc){
-    uid = doc.id;
-    email = doc["email"];
-    fullName = doc["fullName"];
-    phoneNumber = doc["phone"];
-    address = doc["address"];
-    
-  }
-
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'ssn': ssn,
+        'name': fullName,
+        'email': email,
+        'pictureUrl': pictureUrl,
+        'phoneNumber': phoneNumber,
+        'address': address,
+        'birthday': birthday,
+      };
+  static SmartUser fromJson(Map<String, dynamic> json) => SmartUser(
+        id: json['id'],
+        ssn: json['ssn'],
+        fullName: json['name'],
+        email: json['email'],
+        pictureUrl: json['pictureUrl'],
+        phoneNumber: json['phoneNumber'],
+        address: json['address'],
+        birthday: json['birthday'],
+      );
 }

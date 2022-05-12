@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:smartgas/models/user.dart';
 
 class UserController extends GetxController{
+  static UserController instance = Get.find();
   Rx<SmartUser> _smartUser = SmartUser().obs;
   
   SmartUser get user => _smartUser.value;

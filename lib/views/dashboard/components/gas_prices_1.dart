@@ -77,7 +77,7 @@ class GasPrices1 extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.01,
               ),
               Text(
-                "95 Oct.",
+                "98 Oct.",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
@@ -85,7 +85,7 @@ class GasPrices1 extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "431000 L.L.",
+                "441000 L.L.",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,

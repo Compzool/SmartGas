@@ -1,55 +1,85 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smartgas/controllers/userController.dart';
+import 'package:smartgas/models/cars.dart';
 import 'package:smartgas/models/user.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+Future createUser(SmartUser user) async{
+    final docUser = FirebaseFirestore.instance.collection('users').doc(user.id);
+    final json = user.toJson();
+    await docUser.set(json);
+    }
+    Future<SmartUser?> readSingleUser(String id) async {
+  //String id
+  //final  document = await FirebaseFirestore.instance.collection('users').doc(id).get();
+  final docUser = await FirebaseFirestore.instance.collection('users').doc(id);
+  final  snapshot = await docUser.get();
 
-  Future<bool> createNewUser(SmartUser user) async {
-    try {
-      await _firestore.collection("users").doc(user.uid).set({
-        "fullName": user.fullName,
-        "email": user.email,
-        "phone": user.phoneNumber,
-        "address": user.address,
+  if(snapshot.exists){
+    final json = snapshot.data()!;
+    return SmartUser.fromJson(json);
+}
+}
+
+  // Future<bool> createNewUser(SmartUser user) async {
+  //   try {
+  //     await _firestore.collection("users").doc(user.uid).set({
+  //       "fullName": user.fullName,
+  //       "email": user.email,
+  //       "phone": user.phoneNumber,
+  //       "address": user.address,
         
-      });
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
+  //     });
+  //     return true;
+  //   } catch (e) {
+  //     print(e);
+  //     return false;
+  //   }
+  // }
 
-  Future<SmartUser> getUser(String uid) async {
-    try {
-      DocumentSnapshot _doc =
-          await _firestore.collection("users").doc(uid).get();
+  // Future<SmartUser> getUser(String uid) async {
+  //   try {
+  //     DocumentSnapshot _doc =
+  //         await _firestore.collection("users").doc(uid).get();
 
-      return SmartUser.fromDocumentSnapshot(_doc);
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
+  //     return SmartUser.fromDocumentSnapshot(_doc);
+  //   } catch (e) {
+  //     print(e);
+  //     rethrow;
+  //   }
+  // }
 
-  Future<void> addTodo(String content, String uid) async {
+  Future addCar(CarModel car) async {
     try {
       await _firestore
           .collection("users")
-          .doc(uid)
-          .collection("todos")
+          .doc(UserController.instance.user.id)
+          .collection("cars")
           .add({
-        'dateCreated': Timestamp.now(),
-        'content': content,
-        'done': false,
+        "car": car.car,
+        "model": car.model,
+        "licensePlate": car.licensePlate,
+        "driversLicense": car.driversLicense,
+        "color": car.color,
       });
     } catch (e) {
       print(e);
       rethrow;
     }
   }
+Stream<List<CarModel>> readInfoStream(String id) => 
+FirebaseFirestore
+.instance
+.collection('users')
+.doc(id)
+.collection('cars')
+.snapshots()
+.map((snapshot) => 
+  snapshot.docs.map((doc) => CarModel.fromJson(doc.data(),doc.id)).toList()
+);
 
-  // Stream<List<TodoModel>> todoStream(String uid) {
+  // Stream<List<CarModel>> todoStream(String uid) {
   //   return _firestore
   //       .collection("users")
   //       .document(uid)
@@ -57,9 +87,9 @@ class Database {
   //       .orderBy("dateCreated", descending: true)
   //       .snapshots()
   //       .map((QuerySnapshot query) {
-  //     List<TodoModel> retVal = List();
+  //     List<CarModel> retVal = [];
   //     query.documents.forEach((element) {
-  //       retVal.add(TodoModel.fromDocumentSnapshot(element));
+  //       retVal.add(CarModel.fromDocumentSnapshot(element));
   //     });
   //     return retVal;
   //   });
