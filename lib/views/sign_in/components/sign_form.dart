@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartgas/colors/colors.dart';
 import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/form_error.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
+import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/helper/keyboard.dart';
 import 'package:smartgas/views/forgot_password/forgot_password_screen.dart';
 import 'package:smartgas/views/login_success/login_success_screen.dart';
@@ -13,6 +16,7 @@ import 'package:smartgas/widgets/constants.dart';
 import 'package:smartgas/widgets/size_config.dart';
 
 class SignForm extends StatefulWidget {
+  final rememberKey = GlobalKey<_SignFormState>();
   @override
   _SignFormState createState() => _SignFormState();
 }
@@ -20,8 +24,11 @@ class SignForm extends StatefulWidget {
 class _SignFormState extends State<SignForm> {
   //AuthController authController = Get.put(AuthController());
   final _formKey = GlobalKey<FormState>();
+  late SharedPreferences preferences;
   String? email;
   String? password;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool? remember = false;
   final List<String?> errors = [];
 
@@ -40,6 +47,25 @@ class _SignFormState extends State<SignForm> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    init().then((value) => setState(() {
+          remember = preferences.getBool('remember_me')!;
+          email = preferences.getString("email");
+          password = preferences.getString("password");
+          email != null ? emailController.text = email! : "Email";
+          password != null ? passwordController.text = password! : "Password";
+          print(remember);
+          print(email);
+          print(password);
+        }));
+  }
+
+  Future init() async {
+    preferences = await SharedPreferences.getInstance();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -52,18 +78,24 @@ class _SignFormState extends State<SignForm> {
           Row(
             children: [
               Checkbox(
-                value: remember,
+                value: remember, //preferences.getBool('remember'),
                 activeColor: AppColors.color1,
-                onChanged: (value) {
+                onChanged: (value) async {
+                  await preferences.setBool('remember_me', value!);
+
+                  bool? signInStatus = preferences.getBool('remember_me')!;
+                  //AuthController.instance.signInStatus.write('remeber', value);
+                  print(signInStatus);
                   setState(() {
-                    remember = value;
+                    remember = signInStatus;
+                    //UserInformation.instance.remembered = value!;
                   });
                 },
               ),
               Text("Remember me"),
               Spacer(),
               GestureDetector(
-                onTap: () => Get.to(()=>ForgotPasswordScreen()),
+                onTap: () => Get.to(() => ForgotPasswordScreen()),
                 child: Text(
                   "Forgot Password",
                   style: TextStyle(decoration: TextDecoration.underline),
@@ -79,9 +111,16 @@ class _SignFormState extends State<SignForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
+                if (remember == true) {
+                  preferences.setString('email', email!);
+                  preferences.setString('password', password!);
+                } else {
+                  preferences.clear();
+                }
                 KeyboardUtil.hideKeyboard(context);
                 // Get.to(()=>LoginSuccessScreen());
-                AuthController.instance.Login(email!, password!);
+                AuthController.instance.login(email!, password!);
+                UserInformation.instance.password.value = password!;
               }
             },
           ),
@@ -92,6 +131,8 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: passwordController,
+      //initialValue: passwordController.text,
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -125,6 +166,8 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: emailController,
+      // initialValue: emailController.text,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

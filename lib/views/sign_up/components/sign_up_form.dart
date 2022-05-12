@@ -47,6 +47,7 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          IconButton(onPressed: ()=> Get.off(CompleteProfileScreen()), icon: Icon(Icons.abc)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -62,6 +63,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 // if all are valid then go to success screen
                 Get.to(()=>CompleteProfileScreen());
               }
+              
             },
           ),
         ],

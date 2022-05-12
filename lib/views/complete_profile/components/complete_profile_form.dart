@@ -1,5 +1,7 @@
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:smartgas/components/custom_surfix_icon.dart';
 import 'package:smartgas/components/default_button.dart';
 import 'package:smartgas/components/form_error.dart';
@@ -21,15 +23,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
   //LocationController locationController = Get.put(LocationController());
   SignUpForm testing = SignUpForm();
+  final dateController = TextEditingController();
   LocationController locationController = Get.find();
   UserInformation userInformation = Get.find();
   final List<String?> errors = [];
-  String? firstName;
-  String? lastName;
-  late String? fullName = firstName! + " " + lastName!;
+  String? fullName;
+  String? license;
   String? phoneNumber;
   String? address;
-
   void addError({String? error}) {
     if (!errors.contains(error))
       setState(() {
@@ -50,11 +51,13 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildFirstNameFormField(),
+          buildFullNameFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildLastNameFormField(),
+          buildLicenseFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPhoneNumberFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildAgeFormField(dateController),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildAddressFormField(),
           FormError(errors: errors),
@@ -63,8 +66,17 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                AuthController.instance.register(userInformation.email.value, userInformation.password.value, fullName!, phoneNumber!, locationController.address.value);
-
+                print(locationController.address.value.toString());
+                AuthController.instance.register(
+                  userInformation.email.value,
+                  userInformation.password.value,
+                  fullName!,
+                  phoneNumber!,
+                  locationController.address.value,
+                  userInformation.filePath.value,
+                  license!,
+                  dateController.text,
+                );
               }
             },
           ),
@@ -101,8 +113,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     // );
     return Obx(
       () => Text(
-        locationController.address.value,
-        style: TextStyle(color: Colors.lightGreen, fontSize: 25),
+        "Address: ${locationController.address.value}",
+        style:
+            TextStyle(color: Color.fromARGB(255, 128, 219, 25), fontSize: 25),
       ),
     );
   }
@@ -110,8 +123,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      onSaved: (newValue) { phoneNumber = newValue;
-      print(phoneNumber);
+      onSaved: (newValue) {
+        phoneNumber = newValue;
+        print(phoneNumber);
       },
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -137,16 +151,52 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildLastNameFormField() {
+  TextFormField buildLicenseFormField() {
     return TextFormField(
-      onSaved: (newValue) { lastName = newValue;
-      print(lastName);
+      onSaved: (newValue) {
+        license = newValue;
+        print(license);
+      },
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kLicenseNullError);
+        } else if (licenseValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidLicenseError);
+        }
+        license = value;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kLicenseNullError);
+          return "";
+        } else if (!licenseValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidLicenseError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Social Security Number",
+        hintText: "Enter social security number",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/id-card.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildFullNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) {
+        fullName = newValue;
+        print(fullName);
       },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
         }
-        lastName = value;
+        fullName = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -156,8 +206,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
+        labelText: "Full Name",
+        hintText: "Enter your full name",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -166,32 +216,24 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildFirstNameFormField() {
-    return TextFormField(
-      onSaved: (newValue) {  firstName = newValue;
-      print(firstName);
-      },
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kNamelNullError);
-        }
-        firstName = value;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kNamelNullError);
-          return "";
-        }
-        return null;
-      },
+  Widget buildAgeFormField(TextEditingController dateController) {
+    return DateTimeField(
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your first name",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        hintText: "Date Of Birth",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        suffixIcon:
+            CustomSurffixIcon(svgIcon: "assets/icons/date-of-birth.svg"),
       ),
+      controller: dateController,
+      format: DateFormat("yyyy-MM-dd"),
+      onShowPicker: (context, currentValue) {
+        return showDatePicker(
+          context: context,
+          firstDate: DateTime(1900),
+          initialDate: currentValue ?? DateTime.now(),
+          lastDate: DateTime(2100),
+        );
+      },
     );
   }
 }

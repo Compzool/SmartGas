@@ -51,7 +51,7 @@ class Body extends StatelessWidget {
                     SocalCard(
                       icon: "assets/icons/google-icon.svg",
                       press: () {
-                        AuthController.instance.google_signIn();
+                        AuthController.instance.signInWithGoogle();
                       },
                     ),
                     SocalCard(
