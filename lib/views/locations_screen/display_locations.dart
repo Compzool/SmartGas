@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:hexcolor/hexcolor.dart';
+import 'package:smartgas/services/station_scraping.dart';
 import 'package:smartgas/views/gas_station/gas_station_discover.dart';
 import 'package:smartgas/views/locations_screen/components/locations_widget.dart';
 
@@ -155,7 +156,9 @@ class _DisplayLocationsState extends State<DisplayLocations> {
             Icons.search_outlined,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.to(WebScraping());
+          },
         ),
       );
 
