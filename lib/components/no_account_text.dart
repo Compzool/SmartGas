@@ -40,20 +40,20 @@ class NoAccountText extends StatelessWidget {
         SizedBox(
           width: 20,
         ),
-        GestureDetector(
-          onTap: () => Get.off(
-            () => HomeNavigator(),
-            duration: Duration(seconds: 1),
-            transition: Transition.fade,
-          ),
-          child: Text(
-            "Dashboard Test",
-            style: TextStyle(
-                fontSize: getProportionateScreenWidth(16),
-                //color: kPrimaryColor,
-                color: Color.fromARGB(255, 40, 65, 10)),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: () => Get.off(
+        //     () => HomeNavigator(),
+        //     duration: Duration(seconds: 1),
+        //     transition: Transition.fade,
+        //   ),
+        //   child: Text(
+        //     "Dashboard Test",
+        //     style: TextStyle(
+        //         fontSize: getProportionateScreenWidth(16),
+        //         //color: kPrimaryColor,
+        //         color: Color.fromARGB(255, 40, 65, 10)),
+        //   ),
+        // ),
       ],
     );
   }

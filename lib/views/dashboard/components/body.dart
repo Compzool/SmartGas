@@ -198,7 +198,9 @@ class Body extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.15,
                         decoration: BoxDecoration(
                           //color: Colors.cyan,
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(
+                            MediaQuery.of(context).size.width * 0.075,
+                          ),
                           gradient: LinearGradient(
                             colors: [
                               Colors.cyan,
@@ -209,7 +211,8 @@ class Body extends StatelessWidget {
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.05),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -223,7 +226,9 @@ class Body extends StatelessWidget {
                                     "Last Filled",
                                     style: TextStyle(
                                       color: Colors.grey[200],
-                                      fontSize: 14,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.035,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -233,7 +238,8 @@ class Body extends StatelessWidget {
                                 "20L",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.045,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -257,10 +263,12 @@ class Body extends StatelessWidget {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.075),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.05),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -274,7 +282,9 @@ class Body extends StatelessWidget {
                                     "Weekly Filled",
                                     style: TextStyle(
                                       color: Colors.grey[200],
-                                      fontSize: 14,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.035,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -284,7 +294,8 @@ class Body extends StatelessWidget {
                                 "60L",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.045,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -313,10 +324,12 @@ class Body extends StatelessWidget {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.075),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.05),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -330,7 +343,9 @@ class Body extends StatelessWidget {
                                     "Last Visited",
                                     style: TextStyle(
                                       color: Colors.grey[200],
-                                      fontSize: 14,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.035,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -340,7 +355,8 @@ class Body extends StatelessWidget {
                                 "Zaarouriye \n Station",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.045,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -364,10 +380,12 @@ class Body extends StatelessWidget {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.075),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.05),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -381,7 +399,9 @@ class Body extends StatelessWidget {
                                     "Last Payment",
                                     style: TextStyle(
                                       color: Colors.grey[200],
-                                      fontSize: 14,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.035,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -391,7 +411,8 @@ class Body extends StatelessWidget {
                                 "18 USD",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.045,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
