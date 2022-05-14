@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:smartgas/views/qr_scanner/data/scan_data.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ScanController extends GetxController {
   var controller;
@@ -25,12 +26,15 @@ class ScanController extends GetxController {
       }
       barcodeResult = scanData;
       barcodefound(barcodefound.value + 1);
-      _launchURL();
+      launchURL(scanData.code);
     });
   }
 
-  void _launchURL() async {
-    if (!await launch(barcodeResult)) throw 'Could not launch $barcodeResult';
+  void launchURL(String scanData) async {
+    if (await canLaunchUrlString(scanData)) {
+      await launchUrlString(scanData);
+      throw 'Could not launch $barcodeResult';
+    }
   }
 
   @override
