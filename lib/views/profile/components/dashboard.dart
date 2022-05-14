@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartgas/views/apply_additional_balance/drop_down.dart';
 
 class Dashboard extends StatelessWidget {
   @override
@@ -68,15 +70,20 @@ class Dashboard extends StatelessWidget {
                         Color.fromARGB(255, 255, 207, 50)),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                  child: Text(
-                    'Apply for additional balance',
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+                Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                    child: TextButton(
+                      onPressed: () {
+                        Get.to(()=> DropDown());
+                      },
+                      child: Text('Apply for additional balance'),
+                      style: TextButton.styleFrom(
+                        primary: Colors.black,
+                        textStyle: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    )),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   child: IconButton(
