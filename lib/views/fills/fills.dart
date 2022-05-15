@@ -34,9 +34,11 @@ class _ShowFillsState extends State<ShowFills> {
       body: Column(
         children: [
           GetX<FillController>(
-              init: Get.put<FillController>(FillController()),
+              init: Get.find<FillController>(),
               builder: (FillController carController) {
                 if (carController != null && carController.todos != null) {
+                  carController.todos
+                      .sort((a, b) => a.date.seconds.compareTo(b.date.seconds));
                   return Expanded(
                     child: ListView.builder(
                       itemCount: carController.todos.length,
@@ -84,7 +86,7 @@ Widget buildCard(String? id, FillModel car) => Card(
                 height: 30,
               ),
               Text(
-                "Date: ${car.date}",
+                "Date: ${DateTime.fromMillisecondsSinceEpoch(car.date.seconds * 1000)}",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               SizedBox(

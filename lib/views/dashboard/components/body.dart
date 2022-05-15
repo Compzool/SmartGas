@@ -125,9 +125,14 @@
 // }
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 
+import 'package:get/get.dart';
 import 'package:smartgas/colors/colors.dart';
+import 'package:smartgas/controllers/fill_controller.dart';
+import 'package:smartgas/controllers/location_controller.dart';
 import 'package:smartgas/controllers/userController.dart';
 import 'package:smartgas/views/dashboard/components/bottom_bar.dart';
 import 'package:smartgas/views/dashboard/components/bottom_bar_item.dart';
@@ -136,10 +141,42 @@ import 'package:smartgas/views/dashboard/components/gas_prices.dart';
 import 'package:smartgas/views/dashboard/components/gas_prices_1.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class Body extends StatelessWidget {
+import '../../fills/fills.dart';
+
+class Body extends StatefulWidget {
+  Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   Get.put<FillController>(FillController());
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
-    double xLR = MediaQuery.of(context).size.width;
+    double t95Price = 431000;
+    double t98Price = 441000;
+
+    FillController fillController = Get.find();
+    List<SalesData> salesData = fillController.salesData;
+    // if (fillController.initialized && fillController.todos != null) {
+    //   fillController.todos
+    //       .sort((a, b) => a.date.seconds.compareTo(b.date.seconds));
+    //   List<SalesData> salesData = [];
+    //   if (fillController.initialized && fillController.todos != null) {
+    //     for (int i = 0; i < fillController.todos.length; i++) {
+    //       salesData.add(SalesData(
+    //           "${DateTime.fromMillisecondsSinceEpoch(fillController.todos[i].date.seconds * 1000).day.toString()}/${DateTime.fromMillisecondsSinceEpoch(fillController.todos[i].date.seconds * 1000).month.toString()}",
+    //           fillController.todos[i].quantity));
+    //     }
+    //   }
+
     return SafeArea(
       bottom: false,
       maintainBottomViewPadding: false,
@@ -235,7 +272,7 @@ class Body extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                "20L",
+                                "${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize:
@@ -291,7 +328,7 @@ class Body extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                "60L",
+                                "${fillController.weeklyFills().toString()}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize:
@@ -352,7 +389,7 @@ class Body extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                "Zaarouriye \n Station",
+                                "${fillController.todos[fillController.todos.length - 1].station}",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize:
@@ -408,7 +445,7 @@ class Body extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                "18 USD",
+                                "${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize:
@@ -427,43 +464,48 @@ class Body extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Container(
-                child: SfCartesianChart(
-                  // Initialize category axis
-                  title: ChartTitle(
-                    text: 'Weekly Filling',
-                    backgroundColor: Colors.grey.withOpacity(0.2),
-                  ),
 
-                  primaryXAxis: CategoryAxis(),
-                  series: <LineSeries<SalesData, String>>[
-                    LineSeries<SalesData, String>(
-                        // Bind data source
-                        dataLabelSettings: DataLabelSettings(isVisible: true),
-                        dataSource: <SalesData>[
-                          SalesData('Mon', 35),
-                          SalesData('Tue', 28),
-                          SalesData('Wed', 45),
-                          SalesData('Thu', 20),
-                          SalesData('Fri', 55),
-                          SalesData('Sat', 30),
-                          SalesData('Sun', 50),
-                        ],
-                        // dataSource: <SalesData>[
-                        //   SalesData('5/2', 35),
-                        //   SalesData('12/2', 28),
-                        //   SalesData('19/2', 34),
-                        //   SalesData('28/2', 32),
-                        //   SalesData('6/3', 40)
-                        // ],
-                        xValueMapper: (SalesData sales, _) => sales.year,
-                        yValueMapper: (SalesData sales, _) => sales.sales),
-                  ],
-                ),
-              ),
+              GetX<FillController>(
+                  init: Get.put<FillController>(FillController()),
+                  builder: (FillController fillController) {
+                    if (fillController != null &&
+                        fillController.todos != null) {
+                      return Container(
+                        child: SfCartesianChart(
+                          // Initialize category axis
+                          tooltipBehavior: TooltipBehavior(enable: true),
+                          title: ChartTitle(
+                            text: 'Latest Fillings',
+                            backgroundColor: Colors.grey.withOpacity(0.1),
+                            textStyle: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
+                          ),
+
+                          primaryXAxis: CategoryAxis(),
+                          series: <LineSeries<SalesData, String>>[
+                            LineSeries<SalesData, String>(
+                                // Bind data source
+                                dataLabelSettings:
+                                    DataLabelSettings(isVisible: true),
+                                dataSource: salesData,
+                                xValueMapper: (SalesData sales, _) =>
+                                    sales.year,
+                                yValueMapper: (SalesData sales, _) =>
+                                    sales.sales),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Text("loading...");
+                    }
+                  }),
+
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
+
               GasPrices1(),
               // SizedBox(
               //   height: MediaQuery.of(context).size.height * 0.05,

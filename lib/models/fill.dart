@@ -8,7 +8,7 @@ class FillModel {
   String? fillId;
   final double quantity;
   final String station;
-  final String date;
+  final Timestamp date;
   FillModel(
       {required this.quantity,
       required this.station,
@@ -22,6 +22,12 @@ class FillModel {
         'fillId': fillId,
       };
 
+  // static FillModel fromJson(Map<String, dynamic> json, String id) => FillModel(
+  //       quantity: json['quantity'],
+  //       station: json['station'],
+  //       date: json['date'],
+  //       fillId: id,
+  //     );
   static FillModel fromJson(Map<String, dynamic> json, String id) => FillModel(
         quantity: json['quantity'],
         station: json['station'],

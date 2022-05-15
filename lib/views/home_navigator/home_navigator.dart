@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/controllers/carstats_controller.dart';
+import 'package:smartgas/controllers/fill_controller.dart';
 import 'package:smartgas/views/car_details/car_details.dart';
 import 'package:smartgas/views/car_stats/car_data.dart';
 import 'package:smartgas/views/car_stats/main.dart';
@@ -34,6 +35,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       Icon(Icons.person, size: 30),
     ];
     var carStatsCont = Get.put(CarStatsCont());
+    var fillController = Get.put(FillController());
 
     // final screens = [
     //   screen1,
