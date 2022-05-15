@@ -33,6 +33,8 @@ final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp licenseValidatorRegExp =
     RegExp(r"^[0-9]{12}$");
+    final RegExp phoneValidatorRegExp =
+    RegExp(r"^[0-9]{8}$");
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
