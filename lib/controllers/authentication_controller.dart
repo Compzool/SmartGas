@@ -175,9 +175,8 @@ class AuthController extends GetxController {
   void login(String email, String password) async {
     try {
       isGoolgeSignIn = false;
-      final int length = UserInformation.instance.email.value.length;
-      print(length);
-      if (length == 8) {
+      
+      if (email.length == 8) {
         await phoneOTP(email);
       } else {
         UserCredential authResults = await auth.signInWithEmailAndPassword(

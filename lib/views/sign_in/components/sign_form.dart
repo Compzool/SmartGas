@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -167,33 +168,43 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       controller: emailController,
+      //inputFormatters: [FilteringTextInputFormatter.allow(phoneValidatorRegExp)],
       // initialValue: emailController.text,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => {
-          email = newValue,
-          UserInformation.instance.email.value = newValue!
-          },
+        email = newValue,
+        (phoneValidatorRegExp.hasMatch(newValue!) || emailValidatorRegExp.hasMatch(newValue))
+            ? removeError(error: kInvalidEmailError)
+            : addError(error: kInvalidEmailError)
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
-        } else if (phoneValidatorRegExp.hasMatch(value)) {
+        } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
+        print(phoneValidatorRegExp.hasMatch(value));
         return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
           addError(error: kEmailNullError);
           return "";
-        } else if (!phoneValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
         }
+        // } else if (!emailValidatorRegExp.hasMatch(value)) {
+        //     addError(error: kInvalidEmailError);
+        //     return "";
+        //   }
+
+        // else if (!phoneValidatorRegExp.hasMatch(value)) {
+        //   addError(error: kInvalidEmailError);
+        //   return "";
+        // }
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email",
+        labelText: "Email/Phone Number",
+        hintText: "Enter your email/phone",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
