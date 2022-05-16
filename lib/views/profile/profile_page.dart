@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../fills/fills.dart';
 import 'components/dashboard.dart';
 import 'components/my_account.dart';
 import 'components/my_car.dart';
@@ -87,6 +89,9 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             MyCar(),
+            TextButton(
+                onPressed: () => Get.to(() => ShowFills()),
+                child: Text("Fills")),
             const Padding(
               padding: EdgeInsetsDirectional.fromSTEB(30, 30, 0, 5),
               child: Text(

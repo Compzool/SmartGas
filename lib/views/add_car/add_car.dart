@@ -37,7 +37,7 @@ class _NewVehicleState extends State<NewVehicle> {
               stops: [0.5, 1],
               colors: [
                 Colors.white,
-                Colors.grey,
+                Color.fromARGB(144, 3, 54, 102),
               ],
             ),
           ),
@@ -234,7 +234,7 @@ class _NewVehicleState extends State<NewVehicle> {
                   child: ElevatedButton(
                     onPressed: () {
                       uploadCar();
-                     
+
                       Get.back();
                     },
                     child: const Text('Add Vehicle'),
@@ -303,8 +303,16 @@ class _NewVehicleState extends State<NewVehicle> {
       );
 
   void uploadCar() async {
-    try { 
-       print(carController.text+" "+modelController.text+" "+licenseController.text+" "+driverController.text+" "+color.value.toString());
+    try {
+      print(carController.text +
+          " " +
+          modelController.text +
+          " " +
+          licenseController.text +
+          " " +
+          driverController.text +
+          " " +
+          color.value.toString());
       CarModel car = CarModel(
           car: carController.text,
           model: modelController.text,

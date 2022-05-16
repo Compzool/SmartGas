@@ -27,7 +27,7 @@ class Wallet extends StatelessWidget {
                     const Padding(
                       padding: const EdgeInsets.fromLTRB(10.0, 60.0, 0.0, 0.0),
                     ),
-                     CircleAvatar(
+                    CircleAvatar(
                       backgroundImage: NetworkImage(
                           UserController.instance.user.pictureUrl.toString()),
                       radius: 20.0,
@@ -37,7 +37,7 @@ class Wallet extends StatelessWidget {
                           (MediaQuery.of(context).size.width.toDouble() * 0.04),
                       //width: 20.0,
                     ),
-                     Text('Hello, ${UserController.instance.user.fullName}'),
+                    Text('Hello, ${UserController.instance.user.fullName}'),
                   ],
                 ),
                 SizedBox(

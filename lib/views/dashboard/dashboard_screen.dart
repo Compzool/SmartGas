@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:smartgas/views/dashboard/components/nextBody.dart';
 
 import 'components/body.dart';
 
@@ -36,7 +37,8 @@ class Dashboard extends StatelessWidget {
           //   opacity: 0.6,
           // ),
         ),
-        child: Body(),
+        //child: Body(),
+        child: NextBody(),
       ),
     );
   }

@@ -7,7 +7,7 @@ class ImageWidget extends StatelessWidget {
 
   const ImageWidget({
     required this.location,
-     Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
