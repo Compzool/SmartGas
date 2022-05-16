@@ -25,7 +25,7 @@ void main() async {
 
   //Get.put<CarController>(CarController());
   Get.put<NotificationController>(NotificationController());
-  //AuthController.instance.Logout();
+  AuthController.instance.Logout();
   SizeConfig();
   //Get.changeTheme(ThemeData.dark());
   await GetStorage.init();
