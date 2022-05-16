@@ -30,7 +30,7 @@ class _LocationWidgetState extends State<LocationWidget> {
           AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             bottom: isExpanded ? 40 : 100,
-            width: isExpanded ? size.width * 0.78 : size.width * 0.7,
+            width: isExpanded ? size.width * 0.82 : size.width * 0.74,
             height: isExpanded ? size.height * 0.6 : size.height * 0.5,
             child: ExpandedContentWidget(location: widget.location),
           ),
@@ -40,7 +40,9 @@ class _LocationWidgetState extends State<LocationWidget> {
             child: GestureDetector(
               onPanUpdate: onPanUpdate,
               onTap: () {
-                Get.to(() => GasDetails(location: widget.location,index: widget.index),
+                Get.to(
+                    () => GasDetails(
+                        location: widget.location, index: widget.index),
                     transition: Transition.fade);
               },
               child: ImageWidget(location: widget.location),

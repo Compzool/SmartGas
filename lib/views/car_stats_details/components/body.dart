@@ -38,83 +38,87 @@ class _BodyState extends State<Body> {
       ElectricCar(),
     ];
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '$carType',
-                      style: TextStyle(
-                        color: Colors.grey[900],
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        shadows: [],
+      bottom: false,
+      child: Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 10.0, right: 10.0, top: 10.0, bottom: 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '$carType',
+                        style: TextStyle(
+                          color: Colors.grey[900],
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          shadows: [],
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Control Panel',
-                      style: TextStyle(
-                        color: Colors.grey[900],
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                        shadows: [],
+                      Text(
+                        'Control Panel',
+                        style: TextStyle(
+                          color: Colors.grey[900],
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          shadows: [],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.dialog(
-                      AlertDialog(
-                        // title: Text('Are you sure?'),
-                        // content: Text('This will log you out.'),
-                        actions: [
-                          FlatButton(
-                            child: Text('Car Stats'),
-                            onPressed: () => {_setIndex(0), Get.back()},
-                          ),
-                          FlatButton(
-                            child: Text('Tire Pressure'),
-                            onPressed: () => {_setIndex(1), Get.back()},
-                          ),
-                          FlatButton(
-                            child: Text('Tesla Model X'),
-                            onPressed: () => {_setIndex(2), Get.back()},
-                          ),
-                        ],
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.dialog(
+                        AlertDialog(
+                          // title: Text('Are you sure?'),
+                          // content: Text('This will log you out.'),
+                          actions: [
+                            FlatButton(
+                              child: Text('Car Stats'),
+                              onPressed: () => {_setIndex(0), Get.back()},
+                            ),
+                            FlatButton(
+                              child: Text('Tire Pressure'),
+                              onPressed: () => {_setIndex(1), Get.back()},
+                            ),
+                            FlatButton(
+                              child: Text('Tesla Model X'),
+                              onPressed: () => {_setIndex(2), Get.back()},
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.125,
+                      height: MediaQuery.of(context).size.width * 0.125,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                    );
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.125,
-                    height: MediaQuery.of(context).size.width * 0.125,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.menu,
-                        color: Colors.grey[900],
-                        size: MediaQuery.of(context).size.width * 0.07,
+                      child: Center(
+                        child: Icon(
+                          Icons.menu,
+                          color: Colors.grey[900],
+                          size: MediaQuery.of(context).size.width * 0.07,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
-            ),
-            Expanded(child: screens[index]),
-          ],
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+              Expanded(child: screens[index]),
+            ],
+          ),
         ),
       ),
     );

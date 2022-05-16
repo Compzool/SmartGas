@@ -16,7 +16,8 @@ class Profile extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
+      //mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         FutureBuilder<SmartUser?>(
             future: controller.isGoolgeSignIn == false
@@ -26,7 +27,9 @@ class Profile extends GetView<AuthController> {
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
-                return snapshot.hasData ? buildClient(snapshot.data!, context) : Center(child: CircularProgressIndicator());
+                  return snapshot.hasData
+                      ? buildClient(snapshot.data!, context)
+                      : Center(child: CircularProgressIndicator());
                 case ConnectionState.done:
                 default:
                   if (snapshot.hasData) {
@@ -59,9 +62,9 @@ Widget buildClient(SmartUser user, context) => Expanded(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(40, 20, 0, 20),
+          padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 0, 20),
           child: Container(
-            width: 90,
+            width: MediaQuery.of(context).size.width * 0.25,
             height: 90,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
@@ -96,17 +99,14 @@ Widget buildClient(SmartUser user, context) => Expanded(
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditProfile()));
-            },
-            icon: const Icon(
-              Icons.edit,
-              size: 20,
-            ),
+        IconButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EditProfile()));
+          },
+          icon: const Icon(
+            Icons.edit,
+            size: 20,
           ),
         )
       ],

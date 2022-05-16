@@ -22,12 +22,12 @@ class _ShowVehiclesState extends State<ShowVehicles> {
         elevation: 0.1,
         backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
         title: Text("CARS"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.list),
-            onPressed: () {},
-          )
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(Icons.list),
+        //     onPressed: () {},
+        //   )
+        // ],
       ),
       body: Column(
         children: [
@@ -95,7 +95,12 @@ Widget buildCard(String? id, CarModel car) => Card(
               color: Colors.white,
               iconSize: 30.0,
               onPressed: () => {
-                FirebaseFirestore.instance.collection('users').doc(UserController.instance.user.id).collection('cars').doc(car.carId).delete(),
+                FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(UserController.instance.user.id)
+                    .collection('cars')
+                    .doc(car.carId)
+                    .delete(),
               },
             )),
       ),

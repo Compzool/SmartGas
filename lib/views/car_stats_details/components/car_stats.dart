@@ -40,7 +40,10 @@ class _FuelCarState extends State<FuelCar> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(
+            left: 20.0,
+            right: 20.0,
+          ),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,6 +158,9 @@ class _FuelCarState extends State<FuelCar> {
                               distance: 30.3, type: "Distance Remaining"),
                         ],
                       ),
+                SizedBox(
+                  height: height * 0.1,
+                ),
               ],
             ),
           ),
