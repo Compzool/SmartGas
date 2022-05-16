@@ -7,7 +7,6 @@ import 'package:smartgas/components/form_error.dart';
 import 'package:smartgas/controllers/authentication_controller.dart';
 import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/views/complete_profile/complete_profile_screen.dart';
-import 'package:smartgas/views/otp/otp_screen.dart';
 
 import 'package:smartgas/widgets/constants.dart';
 import 'package:smartgas/widgets/size_config.dart';
@@ -48,7 +47,7 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
-          IconButton(onPressed: ()=> Get.to(()=> OtpScreen()), icon: Icon(Icons.abc)),
+          IconButton(onPressed: ()=> Get.off(CompleteProfileScreen()), icon: Icon(Icons.abc)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
