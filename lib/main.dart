@@ -10,6 +10,7 @@ import 'package:smartgas/controllers/car_controller.dart';
 import 'package:smartgas/controllers/fill_controller.dart';
 import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/controllers/location_controller.dart';
+import 'package:smartgas/controllers/notification_controller.dart';
 import 'package:smartgas/controllers/signup_controller.dart';
 import 'package:smartgas/controllers/userController.dart';
 import 'package:smartgas/views/welcome/liquid_welcome.dart';
@@ -23,7 +24,8 @@ void main() async {
   Get.put<UserInformation>(UserInformation());
 
   //Get.put<CarController>(CarController());
-  AuthController.instance.Logout();
+  Get.put<NotificationController>(NotificationController());
+  //AuthController.instance.Logout();
   SizeConfig();
   //Get.changeTheme(ThemeData.dark());
   await GetStorage.init();

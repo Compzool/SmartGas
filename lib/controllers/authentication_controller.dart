@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:smartgas/colors/colors.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartgas/controllers/controller_constants.dart';
+import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/controllers/location_controller.dart';
 import 'package:smartgas/controllers/userController.dart';
 import 'package:smartgas/models/user.dart';
@@ -33,6 +34,7 @@ class AuthController extends GetxController {
   late Rx<GoogleSignInAccount?> googleSignInAccount;
   late Rx<SmartUser?> userModel;
   User? get userCurrent => firebaseUser.value;
+  //set userCurrent(User? user) => firebaseUser.value = user;
   SmartUser? get userModelCurrent => userModel.value;
   set userModelCurrent(SmartUser? value) => userModel.value = value;
   bool isGoolgeSignIn = false;
@@ -91,8 +93,9 @@ class AuthController extends GetxController {
         timer =
             Timer.periodic(Duration(seconds: 10), (_) => checkEmailVerified());
       } else {
-        await Future.delayed(const Duration(seconds: 2), () {Get.offAll(HomeNavigator());});
-        
+        await Future.delayed(const Duration(seconds: 2), () {
+          Get.offAll(HomeNavigator());
+        });
       }
     }
   }
@@ -173,10 +176,14 @@ class AuthController extends GetxController {
     try {
       isGoolgeSignIn = false;
       
-      UserCredential authResults = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      Get.find<UserController>().user =
-          await Database().readSingleUser(authResults.user!.uid) as SmartUser;
+      if (email.length == 8) {
+        await phoneOTP(email);
+      } else {
+        UserCredential authResults = await auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        Get.find<UserController>().user =
+            await Database().readSingleUser(authResults.user!.uid) as SmartUser;
+      }
     } catch (e) {
       Get.snackbar(
         "About Login",
@@ -276,6 +283,55 @@ class AuthController extends GetxController {
       );
       print(e.toString());
     }
+  }
+
+  Future<void> phoneOTP(String phone) async {
+    //FirebaseAuth _auth = FirebaseAuth.instance;
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: "+961" + phone,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        final result = await FirebaseFirestore.instance
+            .collection('users')
+            .where('phoneNumber', isEqualTo: phone)
+            .get();
+        if (result.docs.isEmpty) {
+          Get.snackbar(
+            "phone Sign in",
+            "Failed Request",
+            backgroundColor: Color(0xFFECCB45),
+            titleText: Text(
+              "Phone number not found",
+              style: TextStyle(color: Colors.black),
+            ),
+          );
+          return;
+        } else {
+          isGoolgeSignIn = true;
+          Get.snackbar("User found", "Get IN");
+          userModelCurrent = SmartUser.fromJson(result.docs.first.data());
+          Get.find<UserController>().user = await Database()
+              .readSingleUser(userModelCurrent!.id!) as SmartUser;
+          UserCredential? authResults =
+              await auth.signInWithCredential(credential).then((value) async {
+            if (value.user != null) {
+              Get.offAll(() => HomeNavigator());
+            }
+            return null;
+          });
+
+          //_setInitialScreenGoogle(googleSignInAccount);
+        }
+
+        //Get.snackbar("Phone Verified Congrats", "GG");
+        //await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        Get.snackbar("Phone Verified Failed ${e.code}", e.message!);
+      },
+      timeout: const Duration(seconds: 60),
+      codeSent: (String verificationId, int? resendToken) {},
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
   }
 
   Future<void> Logout() async {
