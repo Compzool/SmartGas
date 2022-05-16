@@ -24,7 +24,7 @@ class GasDetails extends StatelessWidget {
         //mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -224,12 +224,12 @@ class GasDetails extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                margin: EdgeInsets.only(left: 20),
-                width: 170,
-                height: 120,
+                //margin: EdgeInsets.only(left: 20),
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.width * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(30),
@@ -259,12 +259,12 @@ class GasDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                width: 30,
-              ),
+              // SizedBox(
+              //   width: 10,
+              // ),
               Container(
-                width: 170,
-                height: 120,
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.width * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(30),
@@ -297,7 +297,7 @@ class GasDetails extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Center(
             child: ElevatedButton(
@@ -307,7 +307,7 @@ class GasDetails extends StatelessWidget {
               child: RichText(
                   text: TextSpan(children: [
                 TextSpan(
-                    text: "Open mini map ",
+                    text: "Open map ",
                     style: TextStyle(
                         color: Colors.black87,
                         fontSize: 20,
@@ -322,7 +322,8 @@ class GasDetails extends StatelessWidget {
               ])),
               style: ElevatedButton.styleFrom(
                   primary: Colors.yellow[300],
-                  fixedSize: const Size(360, 60),
+                  fixedSize: Size(MediaQuery.of(context).size.width * 0.8,
+                      MediaQuery.of(context).size.height * 0.075),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15))),
             ),

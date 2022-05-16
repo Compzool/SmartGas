@@ -8,7 +8,7 @@ class ExpandedContentWidget extends StatelessWidget {
 
   const ExpandedContentWidget({
     required this.location,
-     Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -17,14 +17,14 @@ class ExpandedContentWidget extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(location.addressLine1),
             SizedBox(height: 8),
-            buildAddressRating(location: location),
+            buildAddressRating(location: location, context: context),
             SizedBox(height: 12),
           ],
         ),
@@ -32,24 +32,26 @@ class ExpandedContentWidget extends StatelessWidget {
 
   Widget buildAddressRating({
     required Location location,
+    required BuildContext context,
   }) =>
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          buildReview(location: location),
+          buildReview(location: location, context: context),
           StarsWidget(stars: location.starRating),
         ],
       );
 
   Widget buildReview({
     required Location location,
+    required BuildContext context,
   }) =>
       Row(
         children: location.reviews
             .map((review) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: CircleAvatar(
-                    radius: 16,
+                    radius: MediaQuery.of(context).size.width * 0.035,
                     backgroundColor: Colors.black12,
                     backgroundImage: AssetImage(review.urlImage),
                   ),

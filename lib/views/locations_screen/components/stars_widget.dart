@@ -15,8 +15,8 @@ class StarsWidget extends StatelessWidget {
     return Row(
       children: allStars
           .map((star) => Container(
-                margin: EdgeInsets.only(right: 4),
-                child: Icon(Icons.star_rate, size: 18, color: Colors.yellow),
+                margin: EdgeInsets.only(right: 3.5),
+                child: Icon(Icons.star_rate, size: 16, color: Colors.yellow),
               ))
           .toList(),
     );
