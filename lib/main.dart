@@ -25,7 +25,7 @@ void main() async {
 
   //Get.put<CarController>(CarController());
   Get.put<NotificationController>(NotificationController());
-  //AuthController.instance.Logout();
+  AuthController.instance.Logout();
   SizeConfig();
   //Get.changeTheme(ThemeData.dark());
   await GetStorage.init();
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Smart Gas',
       initialRoute: '/',
-      initialBinding: LocationBinding(),
+      initialBinding: AllControllerBinding(),
       //theme: ThemeData.dark(),
       getPages: [
         GetPage(name: '/', page: () => GreetingPage()),

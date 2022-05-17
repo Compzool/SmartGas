@@ -157,7 +157,7 @@ class _DisplayLocationsState extends State<DisplayLocations> {
             color: Colors.black,
           ),
           onPressed: () {
-            Get.to(WebScraping());
+            Get.to(()=> WebScraping());
           },
         ),
       );

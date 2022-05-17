@@ -77,7 +77,7 @@ class AuthController extends GetxController {
   _setInitialScreen(User? user) async {
     if (user == null) {
       print("Greetings Page");
-      Get.offAll(() => GreetingPage());
+      Get.to(() => GreetingPage());
     } else {
       //Get.offAll(() => HomeNavigator());
 
@@ -94,7 +94,7 @@ class AuthController extends GetxController {
             Timer.periodic(Duration(seconds: 10), (_) => checkEmailVerified());
       } else {
         await Future.delayed(const Duration(seconds: 2), () {
-          Get.offAll(HomeNavigator());
+          Get.to(()=>HomeNavigator());
         });
       }
     }

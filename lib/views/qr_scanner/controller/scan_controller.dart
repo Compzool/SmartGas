@@ -13,14 +13,22 @@ class ScanController extends GetxController {
   Rx<int> barcodefound = 0.obs;
 
   var camPermission = true.obs;
-
+  var scannedDataRx = [].obs;
+  void add(ScannedData data) {
+    scannedDataRx.add(data);
+  }
+  
   void updateContoller(QRViewController cont) {
     controller = cont.obs;
     controller.value.scannedDataStream.listen((scanData) {
-      if (scannedData.indexWhere((element) => element.text == scanData.code) ==
+      if (scannedData
+                  .indexWhere((element) => element.text == scanData.code) ==
               -1 ||
           scannedData.length == 0) {
         scannedData.add(ScannedData(
+            text: scanData.code,
+            time: DateTime.now().toString().split(" ")[1].substring(0, 8)));
+        scannedDataRx.add(ScannedData(
             text: scanData.code,
             time: DateTime.now().toString().split(" ")[1].substring(0, 8)));
       }
