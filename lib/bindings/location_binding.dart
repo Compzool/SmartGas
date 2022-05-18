@@ -9,7 +9,7 @@ import '../controllers/location_controller.dart';
 class AllControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<LocationController>(
+  Get.put<LocationController>(
       LocationController(),
     );
   }
