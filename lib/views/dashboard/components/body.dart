@@ -163,7 +163,7 @@ class _BodyState extends State<Body> {
     double t95Price = 431000;
     double t98Price = 441000;
 
-    FillController fillController = Get.find();
+    FillController fillController = Get.put(FillController());
     List<SalesData> salesData = fillController.salesData;
     // if (fillController.initialized && fillController.todos != null) {
     //   fillController.todos
