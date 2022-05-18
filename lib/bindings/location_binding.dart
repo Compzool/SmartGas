@@ -9,7 +9,7 @@ import '../controllers/location_controller.dart';
 class AllControllerBinding implements Bindings {
   @override
   void dependencies() {
-  Get.lazyPut<LocationController>(()=>
+  Get.put<LocationController>(
       LocationController(),
     );
   }
