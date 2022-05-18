@@ -6,10 +6,10 @@ import 'package:smartgas/controllers/userController.dart';
 
 import '../controllers/location_controller.dart';
 
-class AllControllerBinding implements Bindings {
+class AllControllerBinding extends Bindings {
   @override
   void dependencies() {
-  Get.lazyPut<LocationController>(()=>
+    Get.put<LocationController>(
       LocationController(),
     );
   }

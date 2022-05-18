@@ -4,72 +4,73 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:smartgas/views/qr_scanner/controller/scan_controller.dart';
 import 'package:smartgas/views/qr_scanner/pages/scan_animation.dart';
 import 'package:smartgas/views/qr_scanner/pages/view_scans.dart';
+import 'package:smartgas/views/wallet/wallet.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey qrScanner = GlobalKey(debugLabel: 'QRCode');
 
   ScanController stateContoller = Get.find();
-
+  Wallet wallet = new Wallet();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          QRView(
-            key: qrScanner,
-            onQRViewCreated: _onQRViewCreated,
-            onPermissionSet: (controller, isSet) {
-              if (isSet == false) {
-                stateContoller.camPermission(false);
-              } else {
-                stateContoller.camPermission(true);
-              }
-            },
-            overlay: QrScannerOverlayShape(
-                cutOutSize: MediaQuery.of(context).size.width * 0.7,
-                borderWidth: 10.0,
-                borderRadius: 10,
-                borderLength: 30,
-                cutOutBottomOffset: 1),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              QRView(
+                key: qrScanner,
+                onQRViewCreated: _onQRViewCreated,
+                onPermissionSet: (controller, isSet) {
+                  if (isSet == false) {
+                    stateContoller.camPermission(false);
+                  } else {
+                    stateContoller.camPermission(true);
+                  }
+                },
+                overlay: QrScannerOverlayShape(
+                    cutOutSize: MediaQuery.of(context).size.width * 0.7,
+                    borderWidth: 10.0,
+                    borderRadius: 10,
+                    borderLength: 30,
+                    cutOutBottomOffset: 1),
+              ),
+              Positioned(
+                top: 100,
+                child: Container(
+                    child: Text(
+                  stateContoller.camPermission.value
+                      ? ""
+                      : "Give Camera Permission!",
+                  style: TextStyle(fontSize: 25, color: Colors.red),
+                )),
+              ),
+              ScanAnimation(),
+              buildScannedOutput(),
+              buildFlashButton(),
+              Positioned(
+                bottom: 30,
+                child: Container(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => ViewScans());
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.qr_code,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          SizedBox(width: 4),
+                          Text("View Scans"),
+                        ],
+                      )),
+                ),
+              ),
+            ],
           ),
-          Positioned(
-            top: 100,
-            child: Container(
-                child: Text(
-              stateContoller.camPermission.value
-                  ? ""
-                  : "Give Camera Permission!",
-              style: TextStyle(fontSize: 25, color: Colors.red),
-            )),
-          ),
-          ScanAnimation(),
-          buildScannedOutput(),
-          buildFlashButton(),
-          Positioned(
-            bottom: 30,
-            child: Container(
-              child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => ViewScans());
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.qr_code,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      SizedBox(width: 4),
-                      Text("View Scans"),
-                    ],
-                  )),
-            ),
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Widget buildFlashButton() {

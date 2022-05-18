@@ -26,21 +26,21 @@ class myWallet extends StatelessWidget {
               ),
             ),
             const Text(
-              '0.0112 BTC',
-              //'10,000,000 L.L',
+              //'0.0112 BTC',
+              '10,000,000 L.L',
               style: TextStyle(
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-            const Text(
-              'Eq: \$ 500',
-              style: TextStyle(
-                fontSize: 13.0,
-                color: Colors.white,
-              ),
-            ),
+            // const Text(
+            //   'Eq: \$ 500',
+            //   style: TextStyle(
+            //     fontSize: 13.0,
+            //     color: Colors.white,
+            //   ),
+            // ),
             Container(
               width: 60.0,
               height: 30.0,
