@@ -271,14 +271,20 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              GetX<FillController>(
+                                
+                                builder: (_) {
+                                  return Text(
+                                    "${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -327,15 +333,16 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.weeklyFills().toString()}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              Obx(() => Text(
+                                    "${fillController.weeklyFills().toString()}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
                             ],
                           ),
                         ),
@@ -388,14 +395,19 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.todos[fillController.todos.length - 1].station}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              GetX<FillController>(
+                                builder: (_) {
+                                  return Text(
+                                    "${fillController.todos[fillController.todos.length - 1].station}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -444,15 +456,16 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              Obx(() => Text(
+                                    "${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
                             ],
                           ),
                         ),
