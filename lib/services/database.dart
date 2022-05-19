@@ -6,10 +6,17 @@ import 'package:smartgas/models/user.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future createUser(SmartUser user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc(user.id);
-    final json = user.toJson();
-    await docUser.set(json);
+  Future<bool> createUser(SmartUser user) async {
+    try {
+      final docUser =
+          FirebaseFirestore.instance.collection('users').doc(user.id);
+      final json = user.toJson();
+      await docUser.set(json);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 
   Future<SmartUser?> readSingleUser(String id) async {

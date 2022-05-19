@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/controllers/carstats_controller.dart';
+import 'package:smartgas/controllers/information.dart';
 
 import 'package:smartgas/controllers/notification_controller.dart';
 
@@ -36,7 +37,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
     setState(() {});
     _notificationController.flutterLocalNotificationsPlugin.show(
         0,
-        "Mingles",
+        "Welcome to SMARTGAS",
         "How you doin ?",
         NotificationDetails(
             android: AndroidNotificationDetails(
@@ -56,7 +57,15 @@ class _HomeNavigatorState extends State<HomeNavigator> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+      int intValue = 0;
       if (notification != null && android != null) {
+        intValue =
+            int.parse(notification.body!.replaceAll(RegExp('[^0-9]'), ''));
+        if (notification.title!.contains("98")) {
+          UserInformation.instance.adminFuelPrice98.value = intValue.toString();
+        } else if (notification.title!.contains("95")) {
+          UserInformation.instance.adminFuelPrice95.value = intValue.toString();
+        }
         _notificationController.flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,

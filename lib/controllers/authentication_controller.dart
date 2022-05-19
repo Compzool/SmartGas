@@ -91,10 +91,11 @@ class AuthController extends GetxController {
             ));
 
         timer =
-            Timer.periodic(Duration(seconds: 10), (_) => checkEmailVerified());
+            Timer.periodic(Duration(seconds: 3), (_) => checkEmailVerified());
       } else {
+        timer?.cancel();
         await Future.delayed(const Duration(seconds: 2), () {
-          Get.to(()=>HomeNavigator());
+          Get.off(() => HomeNavigator());
         });
       }
     }
@@ -151,7 +152,7 @@ class AuthController extends GetxController {
           address: address);
       if (await Database().createUser(user)) {
         Get.find<UserController>().user = user;
-        Get.offAll(() => SignInScreen());
+        //Get.offAll(() => SignInScreen());
       }
     } catch (e) {
       Get.snackbar(
@@ -175,7 +176,7 @@ class AuthController extends GetxController {
   void login(String email, String password) async {
     try {
       isGoolgeSignIn = false;
-      
+
       if (email.length == 8) {
         await phoneOTP(email);
       } else {

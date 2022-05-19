@@ -89,9 +89,24 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             MyCar(),
-            TextButton(
-                onPressed: () => Get.to(() => ShowFills()),
-                child: Text("Fills")),
+            Container(
+              padding: EdgeInsetsDirectional.fromSTEB(
+                  MediaQuery.of(context).size.width * 0.085,
+                  0,
+                  MediaQuery.of(context).size.width * 0.085,
+                  0),
+              child: ElevatedButton(
+                  onPressed: () => Get.to(() => ShowFills()),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  child: Text("Fills")),
+            ),
             const Padding(
               padding: EdgeInsetsDirectional.fromSTEB(30, 30, 0, 5),
               child: Text(

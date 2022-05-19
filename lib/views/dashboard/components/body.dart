@@ -210,7 +210,7 @@ class _BodyState extends State<Body> {
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
                     Text(
-                      "Welcome back ${UserController.instance.user.fullName.toString()}",
+                      "Welcome back ${UserController.instance.user.fullName?.split(" ").first}",
                       style: TextStyle(
                         color: Colors.grey[900],
                         fontSize: 20,

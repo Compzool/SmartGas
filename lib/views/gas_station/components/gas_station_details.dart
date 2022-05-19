@@ -9,7 +9,8 @@ import 'package:smartgas/services/location_service.dart';
 class GasDetails extends StatelessWidget {
   final int index;
   final Location location;
-  const GasDetails({Key? key, required this.location, required this.index})
+  final double distance;
+  const GasDetails({Key? key, required this.location, required this.index,required this.distance})
       : super(key: key);
 
   @override
@@ -248,7 +249,7 @@ class GasDetails extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: "3.1 KM",
+                          text: "${distance.toStringAsFixed(1)} KM",
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,

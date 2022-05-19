@@ -9,7 +9,12 @@ import 'package:smartgas/views/locations_screen/components/image_widget.dart';
 class LocationWidget extends StatefulWidget {
   final Location location;
   final int index;
-  const LocationWidget({Key? key, required this.location, required this.index})
+  final double distance;
+  const LocationWidget(
+      {Key? key,
+      required this.distance,
+      required this.location,
+      required this.index})
       : super(key: key);
 
   @override
@@ -42,7 +47,7 @@ class _LocationWidgetState extends State<LocationWidget> {
               onTap: () {
                 Get.to(
                     () => GasDetails(
-                        location: widget.location, index: widget.index),
+                        location: widget.location, index: widget.index, distance: widget.distance),
                     transition: Transition.fade);
               },
               child: ImageWidget(location: widget.location),

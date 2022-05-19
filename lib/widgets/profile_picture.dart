@@ -155,14 +155,16 @@ class ProfilePicture extends StatelessWidget {
     if (UserController.instance.user.pictureUrl != null) {
       return NetworkImage(UserController.instance.user.pictureUrl!);
     } else {
-      return NetworkImage('assets/images/download.jpg');
+      return AssetImage('assets/images/download.jpg');
     }
   }
 
   Future<void> takeImage(ImageSource imageSource) async {
     final pickedImage =
-        await imagePicker.pickImage(source: imageSource, imageQuality: 100);
-    final updateImage = FirebaseFirestore.instance.collection('users').doc(UserController.instance.user.id);
+        await imagePicker.pickImage(source: imageSource, imageQuality: 75);
+    final updateImage = FirebaseFirestore.instance
+        .collection('users')
+        .doc(UserController.instance.user.id);
     final dir = 'files/${pickedImage!.name}';
 
     pickedFile = File(pickedImage.path);
