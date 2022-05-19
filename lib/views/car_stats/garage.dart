@@ -143,9 +143,9 @@ class _FuelCarState extends State<FuelCar> {
                               fontSize: 24,
                               color: Colors.grey[800],
                               fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: car.date,
-                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                      // TextSpan(
+                      //     text: car.date,
+                      //     style: TextStyle(fontSize: 16, color: Colors.black)),
                     ]),
                   ),
                   SizedBox(
@@ -165,11 +165,11 @@ class _FuelCarState extends State<FuelCar> {
                               series: <SplineSeries<FuelData, String>>[
                                 SplineSeries<FuelData, String>(
                                     dataSource: <FuelData>[
-                                      FuelData(month: 'Jan', refuel: 5.5),
-                                      FuelData(month: 'Feb', refuel: 6.5),
-                                      FuelData(month: 'Mar', refuel: 4.5),
-                                      FuelData(month: 'Apr', refuel: 7.5),
-                                      FuelData(month: 'May', refuel: 8.5),
+                                      FuelData(month: 'Jan', refuel: 100),
+                                      FuelData(month: 'Feb', refuel: 79),
+                                      FuelData(month: 'Mar', refuel: 50),
+                                      FuelData(month: 'Apr', refuel: 69),
+                                      FuelData(month: 'May', refuel: 200),
                                     ],
                                     xValueMapper: (FuelData usage, _) =>
                                         usage.month,

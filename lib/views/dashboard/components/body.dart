@@ -163,7 +163,7 @@ class _BodyState extends State<Body> {
     double t95Price = 431000;
     double t98Price = 441000;
 
-    FillController fillController = Get.find();
+    FillController fillController = Get.put(FillController());
     List<SalesData> salesData = fillController.salesData;
     // if (fillController.initialized && fillController.todos != null) {
     //   fillController.todos
@@ -210,7 +210,7 @@ class _BodyState extends State<Body> {
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
                     Text(
-                      "Welcome back ${UserController.instance.user.fullName.toString()}",
+                      "Welcome back ${UserController.instance.user.fullName?.split(" ").first}",
                       style: TextStyle(
                         color: Colors.grey[900],
                         fontSize: 20,
@@ -271,14 +271,20 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              GetX<FillController>(
+                                
+                                builder: (_) {
+                                  return Text(
+                                    "${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -327,15 +333,16 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.weeklyFills().toString()}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              Obx(() => Text(
+                                    "${fillController.weeklyFills().toString()}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
                             ],
                           ),
                         ),
@@ -388,14 +395,19 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.todos[fillController.todos.length - 1].station}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              GetX<FillController>(
+                                builder: (_) {
+                                  return Text(
+                                    "${fillController.todos[fillController.todos.length - 1].station}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -444,15 +456,16 @@ class _BodyState extends State<Body> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                "${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              Obx(() => Text(
+                                    "${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
                             ],
                           ),
                         ),

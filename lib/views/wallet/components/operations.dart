@@ -52,7 +52,7 @@ class Operations extends StatelessWidget {
           child: IconButton(
             color: Colors.black,
             onPressed: () {
-              Get.to(
+              Get.to(() =>
                 QrScanner(),
                 transition: Transition.rightToLeft,
               );

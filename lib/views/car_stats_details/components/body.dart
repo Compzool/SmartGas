@@ -28,8 +28,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    String carType = 'Mercedes Benz C300';
-    String carModel1 = 'Mercedes Benz C300';
+    String carType = 'Lamborghini Aventador';
+    String carModel1 = 'Lamborghini Aventador';
     String carModel2 = 'Tesla Model X';
     var carStatsCont = Get.put(CarStatsCont());
     var screens = [

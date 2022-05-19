@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/controllers/userController.dart';
 import 'package:smartgas/models/fill.dart';
@@ -16,7 +17,9 @@ class FillController extends GetxController with StateMixin {
   //   _carModel.value = CarModel(car: "",model: "",driversLicense: "",licensePlate: "");
   // }
   Rx<List<FillModel>> fillList = Rx<List<FillModel>>([]);
-  List<FillModel> get todos => fillList.value;
+  List<FillModel> get todos => fillList.value.isNotEmpty
+      ? fillList.value
+      : [FillModel(quantity: 0, station: "no station", date: Timestamp.now())];
 
   List<SalesData> get salesData => getSalesData();
 
@@ -33,6 +36,9 @@ class FillController extends GetxController with StateMixin {
 
   double weeklyFills() {
     double weekly = 0;
+    if (todos.length == 0) {
+      return weekly;
+    }
     for (int i = 0; i < todos.length; i++) {
       if (DateTime.fromMillisecondsSinceEpoch(todos[i].date.seconds * 1000)
           .isAfter(DateTime.now().subtract(Duration(days: 7)))) {
@@ -45,6 +51,10 @@ class FillController extends GetxController with StateMixin {
   List<SalesData> getSalesData() {
     todos.sort((a, b) => a.date.seconds.compareTo(b.date.seconds));
     List<SalesData> salesData = [];
+    if (todos.length == 0) {
+      salesData.add(SalesData("0", 0));
+      return salesData;
+    }
     for (int i = 0; i < todos.length; i++) {
       salesData.add(SalesData(
           "${DateTime.fromMillisecondsSinceEpoch(todos[i].date.seconds * 1000).day.toString()}/${DateTime.fromMillisecondsSinceEpoch(todos[i].date.seconds * 1000).month.toString()}",

@@ -62,9 +62,9 @@ class _FuelCarState extends State<FuelCar> {
                             fontSize: 24,
                             color: Colors.grey[800],
                             fontWeight: FontWeight.bold)),
-                    TextSpan(
-                        text: car.date,
-                        style: TextStyle(fontSize: 16, color: Colors.black)),
+                    // TextSpan(
+                    //     text: car.date,
+                    //     style: TextStyle(fontSize: 16, color: Colors.black)),
                   ]),
                 ),
                 SizedBox(
@@ -84,11 +84,11 @@ class _FuelCarState extends State<FuelCar> {
                             series: <SplineSeries<FuelData, String>>[
                               SplineSeries<FuelData, String>(
                                   dataSource: <FuelData>[
-                                    FuelData(month: 'Jan', refuel: 5.5),
-                                    FuelData(month: 'Feb', refuel: 6.5),
-                                    FuelData(month: 'Mar', refuel: 4.5),
-                                    FuelData(month: 'Apr', refuel: 7.5),
-                                    FuelData(month: 'May', refuel: 8.5),
+                                    FuelData(month: 'Jan', refuel: 100),
+                                    FuelData(month: 'Feb', refuel: 79),
+                                    FuelData(month: 'Mar', refuel: 150),
+                                    FuelData(month: 'Apr', refuel: 69),
+                                    FuelData(month: 'May', refuel: 200),
                                   ],
                                   xValueMapper: (FuelData usage, _) =>
                                       usage.month,
@@ -145,8 +145,8 @@ class _FuelCarState extends State<FuelCar> {
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          fuelGauge(fuel: 6.5, type: "Fuel Usage"),
-                          fuelGauge(fuel: 12.5, type: "Fuel Remaining"),
+                          fuelGauge(fuel: 7.5, type: "Fuel Usage/L"),
+                          fuelGauge(fuel: 12.5, type: "Est Fuel Remaining"),
                         ],
                       )
                     : Row(

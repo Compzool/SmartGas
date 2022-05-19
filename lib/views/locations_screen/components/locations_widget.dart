@@ -11,7 +11,7 @@ class LocationsWidget extends StatefulWidget {
   _LocationsWidgetState createState() => _LocationsWidgetState();
 }
 
-void calculateDistance(double lat1, double lng1, String lat2, String lng2) {
+double calculateDistance(double lat1, double lng1, String lat2, String lng2) {
   double dlat = double.parse(lat2);
   double dlng = double.parse(lng2);
   var p = 0.017453292519943295;
@@ -20,6 +20,7 @@ void calculateDistance(double lat1, double lng1, String lat2, String lng2) {
       c((dlat - lat1) * p) / 2 +
       c(lat1 * p) * c(dlat * p) * (1 - c((dlng - lng1) * p)) / 2;
   debugPrint("THE DISTANCE TO LOCATIONS IS : ${12742 * asin(sqrt(a))}");
+  return 12742 * asin(sqrt(a));
 }
 
 class _LocationsWidgetState extends State<LocationsWidget> {
@@ -29,11 +30,7 @@ class _LocationsWidgetState extends State<LocationsWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    calculateDistance(
-        LocationController.instance.Map1,
-        LocationController.instance.Map2,
-        locations[0].latitude.toString(),
-        locations[0].longitude.toString());
+    
   }
 
   @override
@@ -45,8 +42,13 @@ class _LocationsWidgetState extends State<LocationsWidget> {
               itemCount: locations.length,
               itemBuilder: (context, index) {
                 final location = locations[index];
-
+        final distance = calculateDistance(
+        LocationController.instance.Map1,
+        LocationController.instance.Map2,
+        locations[index].latitude.toString(),
+        locations[index].longitude.toString());
                 return LocationWidget(
+                  distance: distance,
                   location: location,
                   index: index,
                 );

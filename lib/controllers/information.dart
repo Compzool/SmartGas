@@ -10,7 +10,8 @@ class UserInformation extends GetxController {
   final location = "".obs;
   final filePath = "".obs;
   final pictureURL = "".obs;
-  
+  final adminFuelPrice98 = "441000".obs;
+  final adminFuelPrice95 = "431000".obs;
   //late SharedPreferences prefs;
   // final rememberMe = GetStorage();
 

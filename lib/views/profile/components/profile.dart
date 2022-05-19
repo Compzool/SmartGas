@@ -64,7 +64,7 @@ Widget buildClient(SmartUser user, context) => Expanded(
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 0, 20),
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.25,
+            width: MediaQuery.of(context).size.width * 0.20,
             height: 90,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
@@ -77,7 +77,7 @@ Widget buildClient(SmartUser user, context) => Expanded(
           ),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -99,14 +99,17 @@ Widget buildClient(SmartUser user, context) => Expanded(
             ],
           ),
         ),
-        IconButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditProfile()));
-          },
-          icon: const Icon(
-            Icons.edit,
-            size: 20,
+        Padding(
+          padding: const EdgeInsets.only(right: 10.0, top: 20.0),
+          child: IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EditProfile()));
+            },
+            icon: const Icon(
+              Icons.edit,
+              size: 20,
+            ),
           ),
         )
       ],

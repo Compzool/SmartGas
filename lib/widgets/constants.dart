@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartgas/widgets/size_config.dart';
 import 'package:smartgas/colors/colors.dart';
 
+const double smartGasPrice = 431000;
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
@@ -31,10 +32,8 @@ const defaultDuration = Duration(milliseconds: 250);
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-final RegExp licenseValidatorRegExp =
-    RegExp(r"^[0-9]{12}$");
-    final RegExp phoneValidatorRegExp =
-    RegExp(r"^[0-9]{8}$");
+final RegExp licenseValidatorRegExp = RegExp(r"^[0-9]{12}$");
+final RegExp phoneValidatorRegExp = RegExp(r"^[0-9]{8}$");
 const String kEmailNullError = "Please Enter your email/phone number";
 const String kInvalidEmailError = "Please Enter Valid Email/Phone Number";
 const String kPassNullError = "Please Enter your password";

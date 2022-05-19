@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartgas/controllers/information.dart';
 
 import '../../../colors/colors.dart';
 
@@ -48,11 +50,13 @@ class GasPrices1 extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              Text(
-                "431000 L.L.",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+              GetX<UserInformation>(
+                builder: (controller) => Text(
+                  controller.adminFuelPrice95.value + " L.L",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],
@@ -84,11 +88,13 @@ class GasPrices1 extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              Text(
-                "441000 L.L.",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+              GetX<UserInformation>(
+                builder: (controller) => Text(
+                  controller.adminFuelPrice98.value + " L.L",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],

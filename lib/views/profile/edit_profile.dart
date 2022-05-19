@@ -348,6 +348,7 @@ class _EditProfileState extends State<EditProfile> {
     _changePassword(passwordController.text);
     Get.find<UserController>().user = await Database()
         .readSingleUser(UserController.instance.user.id!) as SmartUser;
+    UserController.instance.refresh();
   }
 
   void _changePassword(String password) async {

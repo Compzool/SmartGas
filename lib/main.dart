@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Smart Gas',
       initialRoute: '/',
-      initialBinding: LocationBinding(),
+      initialBinding: AllControllerBinding(),
       //theme: ThemeData.dark(),
       getPages: [
         GetPage(name: '/', page: () => GreetingPage()),
