@@ -327,7 +327,7 @@ class _NewVehicleState extends State<NewVehicle> {
       Get.snackbar(
         "About Car",
         "User message",
-        backgroundColor: Color(0xFFECCB45),
+        backgroundColor: Colors.greenAccent,
         titleText: Text(
           "Car creation failed",
           style: TextStyle(color: Colors.black),

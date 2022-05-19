@@ -272,10 +272,10 @@ class _BodyState extends State<Body> {
                                 ],
                               ),
                               GetX<FillController>(
-                                
                                 builder: (_) {
                                   return Text(
-                                    "${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
+                                    //"${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
+                                    fillController.lastFilled().toString(),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
@@ -398,7 +398,8 @@ class _BodyState extends State<Body> {
                               GetX<FillController>(
                                 builder: (_) {
                                   return Text(
-                                    "${fillController.todos[fillController.todos.length - 1].station}",
+                                    //"${fillController.todos[fillController.todos.length - 1].station}",
+                                    fillController.lastVisited(),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
@@ -457,7 +458,8 @@ class _BodyState extends State<Body> {
                                 ],
                               ),
                               Obx(() => Text(
-                                    "${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
+                                    //"${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
+                                    "${fillController.lastPayment()} L.L.",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:

@@ -83,12 +83,15 @@ class AuthController extends GetxController {
 
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
-        Get.snackbar("Verifcation", "User message",
-            backgroundColor: Color(0xFFECCB45),
-            titleText: Text(
-              "Please Verify your email before you proceed",
-              style: TextStyle(color: Colors.black),
-            ));
+        Get.snackbar(
+          "Verifcation",
+          "User message",
+          backgroundColor: Colors.greenAccent,
+          titleText: Text(
+            "Please Verify your email before you proceed",
+            style: TextStyle(color: Colors.black),
+          ),
+        );
 
         timer =
             Timer.periodic(Duration(seconds: 3), (_) => checkEmailVerified());
@@ -158,7 +161,7 @@ class AuthController extends GetxController {
       Get.snackbar(
         "About User",
         "User message",
-        backgroundColor: Color(0xFFECCB45),
+        backgroundColor: Colors.greenAccent,
         titleText: Text(
           "Account creation failed",
           style: TextStyle(color: Colors.black),
@@ -189,7 +192,7 @@ class AuthController extends GetxController {
       Get.snackbar(
         "About Login",
         "Login message",
-        backgroundColor: Color(0xFFECCB45),
+        backgroundColor: Colors.greenAccent,
         titleText: Text(
           "Account Login failed",
           style: TextStyle(color: Colors.black),
@@ -208,7 +211,7 @@ class AuthController extends GetxController {
     try {
       await auth.sendPasswordResetEmail(email: email);
       Get.snackbar("About Reset", "Reset",
-          backgroundColor: Color(0xFFECCB45),
+          backgroundColor: Colors.greenAccent,
           titleText: Text(
             "Reset email sent",
             style: TextStyle(color: Colors.black),
@@ -217,7 +220,7 @@ class AuthController extends GetxController {
       Get.snackbar(
         "About Reset",
         "Failed Request",
-        backgroundColor: Color(0xFFECCB45),
+        backgroundColor: Colors.greenAccent,
         titleText: Text(
           "Reset email not sent",
           style: TextStyle(color: Colors.black),
@@ -255,7 +258,7 @@ class AuthController extends GetxController {
           Get.snackbar(
             "Google Sign in",
             "Failed Request",
-            backgroundColor: Color(0xFFECCB45),
+            backgroundColor: Colors.greenAccent,
             titleText: Text(
               "Please make an account before using google sign in",
               style: TextStyle(color: Colors.black),
@@ -281,6 +284,7 @@ class AuthController extends GetxController {
         "Error",
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.greenAccent,
       );
       print(e.toString());
     }
@@ -299,7 +303,7 @@ class AuthController extends GetxController {
           Get.snackbar(
             "phone Sign in",
             "Failed Request",
-            backgroundColor: Color(0xFFECCB45),
+            backgroundColor: Colors.greenAccent,
             titleText: Text(
               "Phone number not found",
               style: TextStyle(color: Colors.black),
@@ -308,7 +312,11 @@ class AuthController extends GetxController {
           return;
         } else {
           isGoolgeSignIn = true;
-          Get.snackbar("User found", "Get IN");
+          Get.snackbar(
+            "User found",
+            "Get IN",
+            backgroundColor: Colors.greenAccent,
+          );
           userModelCurrent = SmartUser.fromJson(result.docs.first.data());
           Get.find<UserController>().user = await Database()
               .readSingleUser(userModelCurrent!.id!) as SmartUser;
@@ -327,7 +335,11 @@ class AuthController extends GetxController {
         //await auth.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
-        Get.snackbar("Phone Verified Failed ${e.code}", e.message!);
+        Get.snackbar(
+          "Phone Verified Failed ${e.code}",
+          e.message!,
+          backgroundColor: Colors.greenAccent,
+        );
       },
       timeout: const Duration(seconds: 60),
       codeSent: (String verificationId, int? resendToken) {},
