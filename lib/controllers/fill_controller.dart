@@ -48,6 +48,27 @@ class FillController extends GetxController with StateMixin {
     return weekly;
   }
 
+  double lastFilled() {
+    if (todos.length == 0) {
+      return 0;
+    }
+    return todos[todos.length - 1].quantity;
+  }
+
+  String lastVisited() {
+    if (todos.length == 0) {
+      return "no station yet";
+    }
+    return todos[todos.length - 1].station;
+  }
+
+  double lastPayment() {
+    if (todos.length == 0) {
+      return 0;
+    }
+    return todos[todos.length - 1].quantity * 431000 / 20;
+  }
+
   List<SalesData> getSalesData() {
     todos.sort((a, b) => a.date.seconds.compareTo(b.date.seconds));
     List<SalesData> salesData = [];
@@ -55,6 +76,11 @@ class FillController extends GetxController with StateMixin {
       salesData.add(SalesData("0", 0));
       return salesData;
     }
+    // todos.getRange(todos.length - 11, todos.length - 1).forEach((element) {
+    //   salesData.add(SalesData(
+    //       "${DateTime.fromMillisecondsSinceEpoch(element.date.seconds * 1000).day.toString()}/${DateTime.fromMillisecondsSinceEpoch(element.date.seconds * 1000).month.toString()}",
+    //       element.quantity));
+    // });
     for (int i = 0; i < todos.length; i++) {
       salesData.add(SalesData(
           "${DateTime.fromMillisecondsSinceEpoch(todos[i].date.seconds * 1000).day.toString()}/${DateTime.fromMillisecondsSinceEpoch(todos[i].date.seconds * 1000).month.toString()}",
