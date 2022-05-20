@@ -8,8 +8,8 @@ class LocationController extends GetxController {
   var latitude = 'Getting Latitude..'.obs;
   var longitude = 'Getting Longitude..'.obs;
   final address = 'Getting Address..'.obs;
-  late double Map1;
-  late double Map2;
+   double Map1 = 33.749;
+   double Map2 = 35.065;
   late StreamSubscription<Position> streamSubscription;
 
   @override

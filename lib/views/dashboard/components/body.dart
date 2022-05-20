@@ -275,7 +275,10 @@ class _BodyState extends State<Body> {
                                 builder: (_) {
                                   return Text(
                                     //"${fillController.todos[fillController.todos.length - 1].quantity.toString()} L",
-                                    fillController.lastFilled().toString(),
+                                    fillController
+                                            .lastFilled()
+                                            .toStringAsFixed(2) +
+                                        " L",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
@@ -334,7 +337,7 @@ class _BodyState extends State<Body> {
                                 ],
                               ),
                               Obx(() => Text(
-                                    "${fillController.weeklyFills().toString()}",
+                                    "${fillController.weeklyFills().toStringAsFixed(2)} L",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
@@ -459,7 +462,7 @@ class _BodyState extends State<Body> {
                               ),
                               Obx(() => Text(
                                     //"${fillController.todos[fillController.todos.length - 1].quantity * t95Price / 20} L.L.",
-                                    "${fillController.lastPayment()} L.L.",
+                                    "${fillController.lastPayment().toStringAsFixed(1)} L.L.",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:

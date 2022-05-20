@@ -16,7 +16,7 @@ class GasPrices1 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Gas Prices :  22/2/2022",
+            "Gas Prices :  ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
             style: TextStyle(
               color: Colors.black,
               fontSize: 24,

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartgas/controllers/fill_controller.dart';
+import 'package:smartgas/controllers/information.dart';
 import 'package:smartgas/controllers/location_controller.dart';
 import 'package:smartgas/controllers/userController.dart';
 import 'package:smartgas/models/fill.dart';
@@ -27,7 +28,7 @@ class Transactions extends StatelessWidget {
                       return SizedBox.shrink();
                     }
                     fillController.refresh;
-                    
+
                     return buildCard(UserController.instance.user.id,
                         fillController.todos[index], context);
                   },
@@ -50,23 +51,22 @@ class Transactions extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: dx.scannedDataRx.value.length,
                       itemBuilder: (BuildContext context, int index) {
-
-
-                        WidgetsBinding.instance?.addPostFrameCallback((_){
-                            dx.addFill(FillModel(
-                            quantity:
-                                ((double.parse(dx.scannedDataRx.last.text)) /
-                                        smartGasPrice) *
-                                    20,
-                            station: LocationController.instance.address.value,
-                            date: Timestamp.now()));
-                        dx.scannedDataRx.clear();
-  // Your Code Here
-
-});
-
-
-                       
+                        WidgetsBinding.instance?.addPostFrameCallback((_) {
+                          dx.addFill(FillModel(
+                              quantity:
+                                  ((double.parse(dx.scannedDataRx.last.text)) /
+                                          smartGasPrice) *
+                                      20,
+                              station:
+                                  LocationController.instance.address.value,
+                              date: Timestamp.now()));
+                          UserInformation.instance.money.value =
+                              double.parse(dx.scannedDataRx.last.text);
+                          UserInformation.instance.payment();
+                          
+                          dx.scannedDataRx.clear();
+                          // Your Code Here
+                        });
 
                         return SizedBox.shrink();
                       },

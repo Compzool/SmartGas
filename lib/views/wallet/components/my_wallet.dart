@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartgas/controllers/information.dart';
 
 class myWallet extends StatelessWidget {
   @override
@@ -25,15 +27,15 @@ class myWallet extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            const Text(
-              //'0.0112 BTC',
-              '10,000,000 L.L',
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            Obx(() => Text(
+                  //'0.0112 BTC',
+                  '${UserInformation.instance.userBalance.value.toStringAsFixed(1)} L.L',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                )),
             // const Text(
             //   'Eq: \$ 500',
             //   style: TextStyle(

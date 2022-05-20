@@ -12,6 +12,14 @@ class UserInformation extends GetxController {
   final pictureURL = "".obs;
   final adminFuelPrice98 = "441000".obs;
   final adminFuelPrice95 = "431000".obs;
+  final money = 0.0.obs;
+  final userBalance = 10000000.0.obs;
+  void payment() {
+    if ((userBalance.value - money.value) > 0) {
+      userBalance.value -= money.value;
+    }
+    money.value = 0.0;
+  }
   //late SharedPreferences prefs;
   // final rememberMe = GetStorage();
 

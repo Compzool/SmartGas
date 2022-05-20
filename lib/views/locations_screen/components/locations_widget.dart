@@ -44,7 +44,7 @@ class _LocationsWidgetState extends State<LocationsWidget> {
                 final location = locations[index];
         final distance = calculateDistance(
         LocationController.instance.Map1,
-        LocationController.instance.Map2,
+        LocationController.instance.Map2  ,
         locations[index].latitude.toString(),
         locations[index].longitude.toString());
                 return LocationWidget(

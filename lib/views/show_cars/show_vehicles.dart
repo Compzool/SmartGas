@@ -40,7 +40,7 @@ class _ShowVehiclesState extends State<ShowVehicles> {
                       itemCount: carController.todos.length,
                       itemBuilder: (_, index) {
                         return buildCard(UserController.instance.user.id,
-                            carController.todos[index]);
+                            carController.todos[index], context);
                       },
                     ),
                   );
@@ -54,54 +54,55 @@ class _ShowVehiclesState extends State<ShowVehicles> {
   }
 }
 
-Widget buildCard(String? id, CarModel car) => Card(
-      elevation: 8.0,
-      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-      child: Container(
-        decoration: BoxDecoration(color: Color(car.color!)),
-        child: ListTile(
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            leading: Container(
-              padding: EdgeInsets.only(right: 12.0),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                      right:
-                          new BorderSide(width: 1.0, color: Colors.white24))),
-              child: Icon(FontAwesomeIcons.car, color: Colors.white),
-            ),
-            title: Text(
-              car.car,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+Widget buildCard(String? id, CarModel car, BuildContext context) {
+  final width = MediaQuery.of(context).size.width;
+  final height = MediaQuery.of(context).size.height;
+  return Card(
+    elevation: 8.0,
+    margin: new EdgeInsets.symmetric(horizontal: width * 0.02, vertical: 6.0),
+    child: Container(
+      decoration: BoxDecoration(color: Color(car.color!)),
+      child: ListTile(
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: width * 0.04, vertical: 10.0),
+          leading: Container(
+            padding: EdgeInsets.only(right: 12.0),
+            decoration: new BoxDecoration(
+                border: new Border(
+                    right: new BorderSide(width: 1.0, color: Colors.white24))),
+            child: Icon(FontAwesomeIcons.car, color: Colors.white),
+          ),
+          title: Text(
+            car.car,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
 
-            subtitle: Row(
-              children: <Widget>[
-                Text(
-                  "Plate: ${car.licensePlate}",
-                  style: TextStyle(color: Colors.greenAccent),
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                Text("Model: ${car.model}",
-                    style: TextStyle(color: Colors.white))
-              ],
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              color: Colors.white,
-              iconSize: 30.0,
-              onPressed: () => {
-                FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(UserController.instance.user.id)
-                    .collection('cars')
-                    .doc(car.carId)
-                    .delete(),
-              },
-            )),
-      ),
-    );
+          subtitle: Row(
+            children: [
+              Text(
+                "Plate: ${car.licensePlate}",
+                style: TextStyle(color: Colors.greenAccent),
+              ),
+              SizedBox(
+                width: width * 0.02,
+              ),
+              Text("Model: ${car.model}", style: TextStyle(color: Colors.white))
+            ],
+          ),
+          trailing: IconButton(
+            icon: Icon(Icons.delete),
+            color: Colors.white,
+            iconSize: 30.0,
+            onPressed: () => {
+              FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(UserController.instance.user.id)
+                  .collection('cars')
+                  .doc(car.carId)
+                  .delete(),
+            },
+          )),
+    ),
+  );
+}
