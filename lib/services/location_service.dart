@@ -4,11 +4,16 @@ import 'package:http/http.dart' as http;
 class EnterMap {
  static void launchMap(String address) async {
   String query = Uri.encodeComponent(address);
-  Uri googleUrl = Uri.parse("https://www.google.com/maps/search/?api=1&query=$query");
+  // Uri googleUrl = Uri.parse("https://www.google.com/maps/search/?api=1&query=$query");
 
 
-  if (await canLaunchUrl(googleUrl)) {
-    await launchUrl(googleUrl);
+  // if (await canLaunchUrl(googleUrl)) {
+  //   await launchUrl(googleUrl);
+  // }
+  String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+
+  if (await canLaunch(googleUrl)) {
+    await launch(googleUrl);
   }
 }
 static void navigateTo(double lat, double lng) async {
